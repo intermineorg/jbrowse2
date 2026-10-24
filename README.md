@@ -16,6 +16,6 @@ Target layout once implemented:
 |------|---------|
 | `plugin/` | JBrowse 2 plugin (npm package) with InterMine feature, sequence and text-search adapters |
 | `config/` | Generator that turns a mine's JBrowse 1 track list into a JBrowse 2 `config.json` |
-| `Dockerfile`, `docker-compose.yml`, `default.conf` | JBrowse 2 web build plus generated configs behind nginx, laid out like intermineorg/jbrowse |
+| `Dockerfile`, `docker-compose.yml`, `default.conf` | JBrowse 2 web build plus generated configs behind nginx, laid out like intermineorg/jbrowse, intended for https://jbrowse2.intermine.org/ |
 
 License: MIT.

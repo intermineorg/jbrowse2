@@ -14,13 +14,19 @@ building on it.
   https://github.com/intermineorg/docker_template into
   `~/intermine/docker/humanmine` and `~/intermine/docker/flymine`.
 - JBrowse 1.16.11 runs from https://github.com/intermineorg/jbrowse as a
-  single shared container, published under each mine as
-  `https://www.<mine>.org/jbrowse/` by an nginx `location /jbrowse/` in the
-  mine's own front end (variable upstream `http://jbrowse:80`, container
-  joined to each mine's `<dir>_frontend` network via a compose override).
-  Copy that packaging pattern; do not fork that repository. JBrowse 1 keeps
-  running alongside JBrowse 2 indefinitely, because the classic webapp and
-  the current BlueGenes tool hard-code JBrowse 1 URLs.
+  single shared container. The preferred way to publish it is its own
+  hostname, https://jbrowse.intermine.org/ (InterMine's built-in default),
+  as a virtual host with its own certificate on the server's TLS front end,
+  which the DBCLS admins run; that vhost is being set up and should be live
+  within days of this writing. Until then it is reachable under each mine as
+  `https://www.<mine>.org/jbrowse/` via an nginx `location /jbrowse/` in the
+  mine's front end (variable upstream `http://jbrowse:80`, container joined
+  to each mine's `<dir>_frontend` network via a compose override). The same
+  admins can provide **https://jbrowse2.intermine.org/** for this project;
+  plan on that hostname, with the per-mine sub-path only as a fallback.
+  Copy the jbrowse packaging pattern; do not fork that repository. JBrowse 1
+  keeps running alongside JBrowse 2 indefinitely, because the classic webapp
+  and the current BlueGenes tool hard-code JBrowse 1 URLs.
 - BlueGenes tools are npm packages under `data/tools/@intermine/<name>/`
   on the host, bind-mounted into the bluegenes container; the report page
   loads `dist/bundle.js` and passes `config.json` to the tool's `main`.
@@ -134,13 +140,25 @@ Mirror intermineorg/jbrowse: `Dockerfile` that downloads a pinned
 generated configs in, nginx `default.conf` that sends no `X-Frame-Options`
 (report pages iframe it) and caches `static/` but not `config.json`;
 `docker-compose.yml` with container `jbrowse2`, port variable
-`JBROWSE2_HTTP_PORT` (default suggestion 14881); the same
-`docker-compose.override.yml.example` joining `humanmine_frontend` and
-`flymine_frontend`. In docker_template add `set $jbrowse2
-http://jbrowse2:80;` and a `location /jbrowse2/` block beside the existing
-`/jbrowse/` one (JBrowse 2 web must be told its base path; check the
-release's `index.html` and `jbrowse-web` docs for serving under a
-sub-path, since asset URLs in the build are absolute by default).
+`JBROWSE2_HTTP_PORT` (default suggestion 14881), listening on plain HTTP on
+the host port.
+
+Publishing, in order of preference:
+
+1. **Own hostname, https://jbrowse2.intermine.org/.** The front-end admins
+   add a vhost with a certificate for that name proxying to
+   `127.0.0.1:14881`, exactly as for jbrowse.intermine.org (the nginx
+   snippet in the jbrowse README, "Route A", applies with the name and port
+   changed). JBrowse 2 web is then served at the site root, which is what
+   its build assumes, and every mine uses the same URL with no change to
+   docker_template. This is the plan.
+2. Fallback only: per-mine sub-path `https://www.<mine>.org/jbrowse2/` via
+   the compose override joining `humanmine_frontend` and `flymine_frontend`,
+   plus `set $jbrowse2 http://jbrowse2:80;` and a `location /jbrowse2/`
+   block in docker_template's nginx template beside `/jbrowse/`. Note that
+   `jbrowse-web` builds use absolute asset URLs, so a sub-path needs the
+   build's base path set or rewritten; only worth solving if route 1 is
+   unavailable.
 
 ### Phase 4: BlueGenes tool
 
@@ -150,23 +168,23 @@ gene, an iframe `src` of
 with `config.jbrowseUrl` = `https://www.humanmine.org/jbrowse/?data=`
 (default in the published package: `https://jbrowse.intermine.org/?data=`).
 Fork it as a new tool, e.g. `@intermine/bluegenes-jbrowse2-tool`, that
-builds a JBrowse 2 URL instead:
-`<jbrowse2 base>/?config=<config url>&assembly=<name>&loc=<ref>:<start>-<end>&tracks=<trackId>,...`
+builds a JBrowse 2 URL instead, with `jbrowse2Url` defaulting to
+`https://jbrowse2.intermine.org/`:
+`<jbrowse2Url>?config=<config url>&assembly=<name>&loc=<ref>:<start>-<end>&tracks=<trackId>,...`
 (confirm the exact parameter names against the `jbrowse-web` version
 used). Keep `config.json` keys `accepts`, `classes`, `columnMapping`,
 `toolName`, add `jbrowse2Url` and the assembly naming rule. Install it in
 `data/tools/@intermine/` beside the JBrowse 1 tool so both panels can be
 compared on a report page before retiring the old one.
 
-## 5. Alternative considered: static files, no plugin
+## 5. Rejected alternative
 
-Export each mine's genome and features as indexed files (FASTA + `.fai`,
-GFF3 bgzipped + tabix) and serve them from the container. JBrowse 2 reads
-these natively, so this needs no adapter and is the quickest route to a
-demo. Costs: data duplicated outside the mine, a regeneration step per
-release, and no direct link from features to InterMine objects. Use only
-for a first look or if the adapter stalls; the live-adapter route is the
-one that matches how InterMine already works.
+Exporting each mine's genome and features as static indexed files (FASTA,
+tabix GFF3) would let stock JBrowse 2 run with no plugin, but it duplicates
+data outside the mine, needs regenerating every release and loses the link
+from features to InterMine objects. The maintainer does not want this.
+Mentioned only so it is not re-proposed; the live-adapter route above is
+the plan.
 
 ## 6. Open questions to settle early
 
@@ -176,9 +194,9 @@ one that matches how InterMine already works.
 - Coordinate system of the names endpoint vs the features endpoint.
 - Whether `stats/region` accepts `type`; without it, density scaling per
   track is not possible.
-- Sub-path serving of `jbrowse-web` (needed for `/jbrowse2/` under each
-  mine); if awkward, Route A from the jbrowse README (own hostname) is the
-  fallback, but that currently depends on the DBCLS front-end admins.
+- Timing of the jbrowse2.intermine.org vhost: ask the front-end admins
+  for it early (name, certificate, proxy to `127.0.0.1:14881`), since the
+  container must exist and answer on that port before they can test it.
 - Assembly naming: JBrowse 2 keys everything by assembly name; pick a
   stable scheme (`humanmine-9606`) and use it in the tool, the generator
   and any shared multi-mine config.
