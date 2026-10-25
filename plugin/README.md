@@ -13,10 +13,35 @@ verified API behaviour.
 
 ```sh
 npm install
-npm test            # offline unit tests (fixtures, no network)
+npm test            # offline unit tests (recorded fixtures, no network)
 npm run typecheck   # type-check src and tests
 npm run build       # tsc + UMD bundle in dist/
+npm run test:live   # adapters against the live HumanMine service
+npm run test:e2e    # built plugin inside real jbrowse-web in headless Chromium
 ```
+
+### Live and browser tests
+
+`test:live` skips itself (with a warning) when HumanMine is unreachable;
+set `INTERMINE_BASE` to point it at another mine's
+`.../service/jbrowse/<taxon>`.
+
+`test:e2e` needs `npm run build` first. It downloads the pinned jbrowse-web
+release (SHA-256 checked) into `.e2e-cache/`, serves it with the plugin and a
+generated config on localhost, and drives it in headless Chromium against
+live HumanMine. It asserts that:
+
+- the Gene and exon-nested Transcript tracks draw canvases with no page or
+  console errors;
+- the reference sequence shows at base-pair zoom;
+- typing `PAX6` in the location box navigates to the gene.
+
+Chromium comes from `$E2E_CHROME` (a local binary; `puppeteer` must be
+resolvable) or, failing that, from Docker
+(`zenika/alpine-chrome:with-puppeteer`, run with `--network host`; the
+host's `https_proxy` is passed to Chromium). With neither, the tests skip.
+Screenshots are written to `test-screenshots/`. To run just the browser step
+and print its report: `node e2e/run.mjs [outDir]`.
 
 The bundle is `dist/jbrowse-plugin-intermine.umd.production.min.js`; load it
 from a JBrowse 2 config with

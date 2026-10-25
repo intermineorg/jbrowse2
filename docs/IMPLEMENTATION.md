@@ -41,6 +41,18 @@ These settle PLAN.md section 6.
   (`type` is the adapter discriminator in a JBrowse 2 config; using it for
   both silently queries the wrong class).
 
+## Findings from browser testing
+
+- A text-search adapter config must define `assemblyNames` (and
+  `textSearchAdapterId`) or JBrowse silently selects no adapter. Fixed in the
+  schema; covered by a unit test and the e2e search test.
+- JBrowse's own analytics call (`analytics.jbrowse.org`) is blocked in locked
+  down environments and logs console errors; generated configs set
+  `configuration.disableAnalytics`.
+- The location box runs text search with `searchType: exact` and filters
+  results by fuzzy match on `displayString`, which therefore must contain the
+  query.
+
 ## Steps
 
 ### Phase 1: plugin (`plugin/`)
@@ -66,7 +78,7 @@ These settle PLAN.md section 6.
   text-search adapter type. The `intermineUrl` attribute is rendered as a
   link by JBrowse's own feature panel, so no widget is needed. Test against a
   real `PluginManager`.
-- [ ] **8. Live and browser acceptance.** `test:live` hits HumanMine through
+- [x] **8. Live and browser acceptance.** `test:live` hits HumanMine through
   the adapters; `test:e2e` serves a built bundle plus a `jbrowse-web` page
   with a hand-written 9606 config in headless Chromium and asserts a drawn
   canvas, no `pageerror`, and that PAX6 is found by name. Documented in

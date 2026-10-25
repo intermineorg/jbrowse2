@@ -37,4 +37,18 @@ describe('InterMinePlugin', () => {
     expect(readConfObject(conf, 'nestExons')).toBe(true)
     expect(readConfObject(conf, 'exonType')).toBe('Exon')
   })
+
+  it('text search config carries the slots JBrowse needs to select the adapter', () => {
+    const pm = new PluginManager([new InterMinePlugin()]).createPluggableElements()
+    pm.configure()
+    const conf = pm.getTextSearchAdapterType('InterMineTextSearchAdapter')!.configSchema.create({
+      type: 'InterMineTextSearchAdapter',
+      textSearchAdapterId: 'humanmine-9606-names',
+      assemblyNames: ['humanmine-9606'],
+      baseUrl: 'https://x/service/jbrowse/9606',
+    })
+    // TextSearchManager selects adapters by readConfObject(conf, 'assemblyNames')
+    expect(readConfObject(conf, 'assemblyNames')).toEqual(['humanmine-9606'])
+    expect(readConfObject(conf, 'textSearchAdapterId')).toBe('humanmine-9606-names')
+  })
 })

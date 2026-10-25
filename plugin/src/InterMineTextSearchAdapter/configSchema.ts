@@ -4,6 +4,16 @@ import { ConfigurationSchema } from '@jbrowse/core/configuration'
 export default ConfigurationSchema(
   'InterMineTextSearchAdapter',
   {
+    textSearchAdapterId: {
+      type: 'string',
+      description: 'Unique id for this adapter, used by JBrowse to cache it',
+      defaultValue: 'intermine-names',
+    },
+    assemblyNames: {
+      type: 'stringArray',
+      description: 'Assemblies this adapter searches; JBrowse ignores the adapter for any other assembly',
+      defaultValue: [],
+    },
     baseUrl: {
       type: 'string',
       description:
