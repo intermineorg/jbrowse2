@@ -86,7 +86,7 @@ These settle PLAN.md section 6.
 
 ### Phase 2: config generator (`config/`)
 
-- [ ] **9. Generator.** Node ES module CLI: `<mineRoot> <taxon>` to a
+- [x] **9. Generator.** Node ES module CLI: `<mineRoot> <taxon>` to a
   JBrowse 2 `config.json`. Assembly name `<mine>-<taxon>` (lower-case, e.g.
   `humanmine-9606`). Skips the catch-all `SequenceFeature` track by default,
   adds exon-nested transcript track, text search adapter, plugin entry.

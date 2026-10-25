@@ -1,4 +1,4 @@
-// Serves jbrowse-web + the built plugin + a config on localhost and drives it in
+// Serves jbrowse-web + the built plugin + a generated config on localhost and drives it in
 // headless Chromium (browser-check.cjs). Used by test/intermine.e2e.test.ts.
 //
 // Chromium comes from, in order: $E2E_CHROME (a local binary, with puppeteer
@@ -43,7 +43,8 @@ export async function ensureJBrowseWeb() {
   return dir
 }
 
-export function startServer(webDir, config = e2eConfig()) {
+export async function startServer(webDir, config) {
+  config ??= await e2eConfig()
   const bundle = join(root, 'dist', PLUGIN_FILE)
   if (!existsSync(bundle)) throw new Error(`Build the plugin first (npm run build): ${bundle} missing`)
   const server = createServer((req, res) => {

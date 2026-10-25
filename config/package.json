@@ -1,0 +1,12 @@
+{
+  "name": "jbrowse-config-intermine",
+  "version": "0.1.0",
+  "description": "Generates JBrowse 2 config.json files from InterMine mines' JBrowse track lists",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "jbrowse-config-intermine": "generate.mjs" },
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\""
+  }
+}
