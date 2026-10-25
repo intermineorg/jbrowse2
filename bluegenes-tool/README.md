@@ -46,9 +46,23 @@ cp -r <this repo>/bluegenes-tool bluegenes-jbrowse2-tool     # dist/ is committe
 rm -rf bluegenes-jbrowse2-tool/node_modules bluegenes-jbrowse2-tool/test
 ```
 
-then add the tool to the mine's BlueGenes tool list the same way
-`bluegenes-jbrowse-tool` is listed, and reload. Both panels then appear on a
-gene report page, so they can be compared before the JBrowse 1 tool is
+then add it to the tool list in `data/tools/tools.edn` beside
+`bluegenes-jbrowse-tool` (`"@intermine/bluegenes-jbrowse2-tool" "0.1.0"` in
+the `:tools` map) and restart BlueGenes (`docker-compose restart bluegenes`
+in the mine's directory). `https://www.<mine>.org/api/tools/all` should then
+list it, with your `jbrowse2Url`.
+
+**Add it to the report page layout.** Installing a tool is not enough when
+the mine has a saved report page layout for `Gene` (HumanMine has one, read
+from `<mine>/service/bluegenes-properties`, key `layout.report`): only
+mines without a saved layout show every installed tool automatically. Log
+in to BlueGenes as the mine's superuser, open **Admin**, and under **Report
+page layout** select the class `Gene`, open the `Genomics` category, add
+*JBrowse 2 Genome Browser* from the "Available classes, tools and templates"
+box, move it next to *JBrowse Genome Browser*, and **Save changes**. The
+layout is stored in the mine, so it applies to every user at once with no
+restart; to undo, remove the item and save again. Both panels then appear on
+a gene report page, so they can be compared before the JBrowse 1 tool is
 retired. Nothing else changes: the JBrowse 1 tool and the classic webapp keep
 using the JBrowse 1 container.
 
