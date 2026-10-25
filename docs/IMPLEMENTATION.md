@@ -39,8 +39,8 @@ These settle PLAN.md section 6.
 
 ### Phase 1: plugin (`plugin/`)
 
-- [ ] **1. Plan** (this file).
-- [ ] **2. Plugin scaffold.** `plugin/` with `package.json`
+- [x] **1. Plan** (this file).
+- [x] **2. Plugin scaffold.** `plugin/` with `package.json`
   (`jbrowse-plugin-intermine`), TypeScript, rollup UMD build following the
   GMOD template, vitest, an empty `Plugin` subclass, a test that the plugin
   class installs. README for the package.
