@@ -1,5 +1,11 @@
 # JBrowse 2 for InterMine: implementation brief
 
+> **Implemented.** This is the original brief, kept as written. What was built,
+> what was verified, and the places where reality differed (adapter slot
+> `intermineClass` instead of `type`; relative asset URLs in jbrowse-web, so the
+> sub-path fallback is easy; names-endpoint coordinates are 1-based) are in
+> [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md).
+
 Written 2026-10-24 at the end of a Claude Code session that deployed
 JBrowse 1 and repaired the BlueGenes tool store on HumanMine and FlyMine.
 It is addressed to a future session (or person) starting the JBrowse 2 work

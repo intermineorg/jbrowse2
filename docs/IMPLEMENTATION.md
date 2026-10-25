@@ -114,5 +114,5 @@ These settle PLAN.md section 6.
 
 ### Wrap-up
 
-- [ ] **12. Docs and CI.** Top-level README status/layout, `docs/DEPLOY.md`,
+- [x] **12. Docs and CI.** Top-level README status/layout, `docs/DEPLOY.md`,
   GitHub Actions running the offline tests and build. Final review pass.
