@@ -11,11 +11,10 @@ Steps that need the maintainer or the front-end admins are marked **(you)**;
 nothing here has been done on the production server.
 
 **`docker-compose` or `docker compose`.** The commands below use
-`docker-compose`, the standalone Compose v1 tool, because the current
-production server has it. Newer installations should use `docker compose`
-(the Compose v2 plugin) instead: the arguments are the same. With v1, use
-1.27 or later (`docker-compose version`), since this repository's
-`docker-compose.yml` has no `version:` line.
+`docker-compose`, the standalone Compose binary, because that is what the
+current production server has (v2.12.0). Newer installations should use
+`docker compose` (the Compose plugin for the Docker CLI) instead: the
+arguments are the same.
 
 ## 1. Build and start
 

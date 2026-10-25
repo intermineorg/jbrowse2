@@ -32,7 +32,7 @@ structure from the query service), and where the result differs from the brief.
 ## Quick start
 
 ```sh
-docker compose up -d --build        # JBrowse 2 on http://localhost:14881/
+docker-compose up -d --build        # JBrowse 2 on http://localhost:14881/
 ```
 
 Open `http://localhost:14881/?assembly=humanmine-9606&loc=11:31,780,000..31,830,000&tracks=humanmine-9606-Gene`
