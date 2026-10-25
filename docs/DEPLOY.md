@@ -10,16 +10,28 @@ the classic webapp and the current BlueGenes tool use its URLs.
 Steps that need the maintainer or the front-end admins are marked **(you)**;
 nothing here has been done on the production server.
 
+**`docker-compose` or `docker compose`.** The commands below use
+`docker-compose`, the standalone Compose v1 tool, because the current
+production server has it. Newer installations should use `docker compose`
+(the Compose v2 plugin) instead: the arguments are the same. With v1, use
+1.27 or later (`docker-compose version`), since this repository's
+`docker-compose.yml` has no `version:` line.
+
 ## 1. Build and start
 
 ```sh
 git clone https://github.com/intermineorg/jbrowse2.git ~/intermine/docker/jbrowse2
 cd ~/intermine/docker/jbrowse2
 cp .env.example .env            # optional: change JBROWSE2_HTTP_PORT (default 14881)
-docker compose up -d --build
+docker-compose up -d --build
 docker ps --filter name=jbrowse2 --format '{{.Names}} {{.Status}}'   # ... (healthy)
 curl -s http://localhost:14881/config.json | head -c 200
 ```
+
+The last command ends with `(23) Failed writing body`: that is only curl
+noticing that `head` stopped reading after 200 bytes, and is harmless. To
+check the whole file is valid JSON instead:
+`curl -s http://localhost:14881/config.json | python3 -m json.tool > /dev/null && echo valid`.
 
 The container speaks plain HTTP on the host port. Browsers refuse an
 `http://` iframe inside an `https://` page, so publish it over HTTPS (next
@@ -84,7 +96,7 @@ URLs; they are not, in 4.3.0.)
 
 1. Join the container to each mine's frontend network:
    `cp docker-compose.override.yml.example docker-compose.override.yml`, list
-   your mines' networks, `docker compose up -d`.
+   your mines' networks, `docker-compose up -d`.
 2. In each mine's front end (docker_template's `nginx/nginx.conf.template`,
    beside `/jbrowse/`):
 
@@ -105,7 +117,52 @@ URLs; they are not, in 4.3.0.)
 
    The upstream is a runtime-resolved variable, so the mine's nginx still
    starts when the container is absent (requests then give 502).
-3. The BlueGenes tool's `jbrowse2Url` must then be `https://www.<mine>.org/jbrowse2/`.
+3. Rebuild, test and restart each mine's nginx (below).
+4. The BlueGenes tool's `jbrowse2Url` must then be `https://www.<mine>.org/jbrowse2/`.
+
+#### Restarting and testing a mine's nginx after editing its config
+
+In docker_template the nginx config is a template that is copied into the
+nginx *image* at build time (`nginx/nginx.Dockerfile`) and rendered with
+`envsubst` when the container starts. Restarting the container is therefore
+not enough: rebuild the image. Test the new config before replacing the
+running container, because a broken config leaves the mine's nginx
+restarting in a loop and the whole site down. For HumanMine (FlyMine the
+same in its own directory):
+
+```sh
+cd ~/intermine/docker/humanmine
+cp nginx/nginx.conf.template nginx/nginx.conf.template.bak   # before editing
+
+# 1. build the image with the edited template; the running site is unaffected
+docker-compose build nginx
+
+# 2. test it in a throwaway container, which renders the template exactly as
+#    the real one will; expect "syntax is ok" and "test is successful"
+docker-compose run --rm --no-deps nginx nginx -t
+
+# 3. replace the running container (a second or two of downtime)
+docker-compose up -d nginx
+
+# 4. check
+docker ps --filter name=humanmine_nginx --format '{{.Names}} {{.Status}}'
+curl -sI https://www.humanmine.org/jbrowse2/ | head -1   # 200
+curl -sI https://www.humanmine.org/jbrowse/  | head -1   # JBrowse 1 unaffected
+curl -sI https://www.humanmine.org/          | head -1   # BlueGenes unaffected
+```
+
+The container is named `${MINE}${INSTANCE}_nginx` (`humanmine_nginx` when
+`INSTANCE` is empty in the mine's `.env`). If step 2 fails, fix the template
+and repeat from step 1; the live site is still running the old config. A 502
+from `/jbrowse2/` means nginx is fine but cannot reach the JBrowse 2
+container: check step 1 (the override file and `docker-compose up -d` in
+`~/intermine/docker/jbrowse2`) and that `docker ps` shows `jbrowse2` running.
+
+To undo: restore `nginx/nginx.conf.template.bak` and repeat steps 1 to 3.
+
+These steps follow the current docker_template on GitHub; if a mine
+directory is an older copy, check the `nginx:` service in its
+`docker-compose.yml` first.
 
 ## 3. Regenerate the config for a new mine release
 
@@ -117,7 +174,7 @@ node config/generate.mjs \
   https://www.humanmine.org/humanmine 9606 \
   https://www.flymine.org/flymine 7227 \
   -o docker/config.json
-docker compose up -d --build
+docker-compose up -d --build
 git add docker/config.json && git commit -m "Regenerate JBrowse 2 config"
 ```
 
