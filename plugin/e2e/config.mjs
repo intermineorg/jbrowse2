@@ -1,11 +1,12 @@
 // The e2e run uses the real config generator (../../config) against live
-// HumanMine, so generator, plugin and JBrowse are exercised together.
+// HumanMine and FlyMine, so generator, plugin and JBrowse are exercised together.
 import { generateConfig } from '../../config/lib.mjs'
 
-export const MINE = 'https://www.humanmine.org/humanmine'
-export const TAXON = '9606'
-export const ASSEMBLY = 'humanmine-9606'
+export const MINES = [
+  { mineRoot: 'https://www.humanmine.org/humanmine', taxon: '9606' },
+  { mineRoot: 'https://www.flymine.org/flymine', taxon: '7227' },
+]
 export const PLUGIN_FILE = 'jbrowse-plugin-intermine.umd.production.min.js'
 
-export const e2eConfig = ({ mine = MINE, taxon = TAXON } = {}) =>
-  generateConfig([{ mineRoot: mine, taxon }], { pluginUrl: PLUGIN_FILE })
+export const e2eConfig = ({ datasets = MINES } = {}) =>
+  generateConfig(datasets, { pluginUrl: PLUGIN_FILE })

@@ -34,15 +34,15 @@ function toSimpleFeature(f: InterMineFeatureData): Feature {
 export default class InterMineFeatureAdapter extends BaseFeatureDataAdapter {
   private refNames?: Promise<string[]>
 
-  private get baseUrl(): string {
+  protected get baseUrl(): string {
     return this.getConf('baseUrl')
   }
 
-  private get type(): string {
+  protected get type(): string {
     return this.getConf('intermineClass')
   }
 
-  private get mineRoot(): string {
+  protected get mineRoot(): string {
     return this.getConf('mineRoot') || mineRootFromBaseUrl(this.baseUrl)
   }
 
@@ -72,7 +72,7 @@ export default class InterMineFeatureAdapter extends BaseFeatureDataAdapter {
     })
   }
 
-  private async fetchRegion(region: Region, opts: BaseOptions) {
+  protected async fetchRegion(region: Region, opts: BaseOptions): Promise<InterMineFeatureData[]> {
     const { refName, start, end } = region
     const { baseUrl, type, mineRoot } = this
     const { signal } = opts

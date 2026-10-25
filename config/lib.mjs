@@ -6,8 +6,15 @@ export const PLUGIN_NAME = 'InterMine'
 
 /** Catch-all class that spans every other feature; huge, so off by default. */
 export const DEFAULT_EXCLUDE = ['SequenceFeature']
-/** Classes drawn with their exons nested (see the plugin's `nestExons`). */
+/**
+ * Classes drawn as gene models (gene > transcripts > exons/CDS) and as
+ * transcripts with exons/CDS, both read from the mine's query service by the
+ * plugin's InterMineGeneModelAdapter. Other classes are flat boxes.
+ */
+export const DEFAULT_GENE_MODELS = ['Gene']
 export const DEFAULT_NEST_EXONS = ['Transcript', 'MRNA']
+/** Initial height (px) of gene model and transcript tracks. */
+export const MODEL_TRACK_HEIGHT = 300
 
 const trim = s => s.replace(/\/+$/, '')
 
@@ -33,6 +40,17 @@ export async function fetchTrackList(mineRoot, taxon, fetchImpl = fetch) {
   return res.json()
 }
 
+function featureAdapter(baseUrl, intermineClass, { geneModels, nestExons }) {
+  const level = geneModels.includes(intermineClass)
+    ? 'gene'
+    : nestExons.includes(intermineClass)
+      ? 'transcript'
+      : undefined
+  return level
+    ? { type: 'InterMineGeneModelAdapter', baseUrl, intermineClass, level }
+    : { type: 'InterMineFeatureAdapter', baseUrl, intermineClass }
+}
+
 /**
  * One mine/taxon -> a config fragment: one assembly, its feature tracks and its
  * text search adapter.
@@ -41,6 +59,7 @@ export function buildAssemblyConfig(trackList, mineRoot, taxon, opts = {}) {
   const {
     exclude = DEFAULT_EXCLUDE,
     include,
+    geneModels = DEFAULT_GENE_MODELS,
     nestExons = DEFAULT_NEST_EXONS,
   } = opts
   const assembly = assemblyName(mineRoot, taxon, trackList.dataset_id)
@@ -57,18 +76,19 @@ export function buildAssemblyConfig(trackList, mineRoot, taxon, opts = {}) {
     if (!cls || seen.has(cls)) continue
     if (include ? !include.includes(cls) : exclude.includes(cls)) continue
     seen.add(cls)
+    const trackId = `${assembly}-${cls}`
+    const adapter = featureAdapter(trim(t.baseUrl || baseUrl), cls, { geneModels, nestExons })
     tracks.push({
       type: 'FeatureTrack',
-      trackId: `${assembly}-${cls}`,
+      trackId,
       name: t.key || cls,
       ...(t.category ? { category: [t.category] } : {}),
       assemblyNames: [assembly],
-      adapter: {
-        type: 'InterMineFeatureAdapter',
-        baseUrl: trim(t.baseUrl || baseUrl),
-        intermineClass: cls,
-        ...(nestExons.includes(cls) ? { nestExons: true } : {}),
-      },
+      adapter,
+      // a gene stacks all its transcripts; the default 100px shows only a few
+      ...(adapter.level
+        ? { displays: [{ type: 'LinearBasicDisplay', displayId: `${trackId}-LinearBasicDisplay`, height: MODEL_TRACK_HEIGHT }] }
+        : {}),
     })
   }
 

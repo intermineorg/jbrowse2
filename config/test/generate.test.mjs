@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 
 import { parseCli } from '../generate.mjs'
 import {
+  MODEL_TRACK_HEIGHT,
   assemblyName,
   buildAssemblyConfig,
   generateConfig,
@@ -55,19 +56,32 @@ test('human config: assembly, sequence adapter, plugin-ready tracks', () => {
     name: 'Gene',
     category: ['Features'],
     assemblyNames: ['humanmine-9606'],
-    adapter: { type: 'InterMineFeatureAdapter', baseUrl: base, intermineClass: 'Gene' },
+    adapter: { type: 'InterMineGeneModelAdapter', baseUrl: base, intermineClass: 'Gene', level: 'gene' },
+    displays: [{ type: 'LinearBasicDisplay', displayId: 'humanmine-9606-Gene-LinearBasicDisplay', height: MODEL_TRACK_HEIGHT }],
+  })
+  assert.deepEqual(c.tracks.find(t => t.trackId === 'humanmine-9606-Exon'), {
+    type: 'FeatureTrack',
+    trackId: 'humanmine-9606-Exon',
+    name: 'Exon',
+    category: ['Features'],
+    assemblyNames: ['humanmine-9606'],
+    adapter: { type: 'InterMineFeatureAdapter', baseUrl: base, intermineClass: 'Exon' },
   })
 })
 
-test('transcript classes nest exons, others do not', () => {
-  const c = buildAssemblyConfig(human, HUMAN, '9606')
-  const by = id => c.tracks.find(t => t.trackId === `humanmine-9606-${id}`).adapter
-  assert.equal(by('Transcript').nestExons, true)
-  assert.equal(by('MRNA').nestExons, true)
-  assert.equal(by('Gene').nestExons, undefined)
-  assert.equal(by('Exon').nestExons, undefined)
-  const none = buildAssemblyConfig(human, HUMAN, '9606', { nestExons: [] })
-  assert.ok(none.tracks.every(t => t.adapter.nestExons === undefined))
+test('genes and transcript classes get gene models, others are flat', () => {
+  for (const [list, root, taxon] of [[human, HUMAN, '9606'], [fly, FLY, '7227']]) {
+    const c = buildAssemblyConfig(list, root, taxon)
+    const by = cls => c.tracks.find(t => t.adapter.intermineClass === cls).adapter
+    assert.deepEqual([by('Gene').type, by('Gene').level], ['InterMineGeneModelAdapter', 'gene'])
+    assert.deepEqual([by('MRNA').type, by('MRNA').level], ['InterMineGeneModelAdapter', 'transcript'])
+    assert.equal(by('Exon').type, 'InterMineFeatureAdapter')
+    assert.equal(c.tracks.filter(t => t.adapter.level).length, 3) // Gene, MRNA, Transcript
+  }
+  const flat = buildAssemblyConfig(human, HUMAN, '9606', { geneModels: [], nestExons: [] })
+  assert.ok(flat.tracks.every(t => t.adapter.type === 'InterMineFeatureAdapter' && !t.displays))
+  const onlyGenes = buildAssemblyConfig(human, HUMAN, '9606', { nestExons: [] })
+  assert.deepEqual(onlyGenes.tracks.filter(t => t.adapter.level).map(t => t.adapter.intermineClass), ['Gene'])
 })
 
 test('include/exclude options', () => {
@@ -127,10 +141,10 @@ test('HTTP failures name the url', async () => {
 })
 
 test('cli parsing', () => {
-  const c = parseCli([HUMAN, '9606', FLY, '7227', '-o', 'x.json', '--exclude', 'A, B', '--nest-exons', ''])
+  const c = parseCli([HUMAN, '9606', FLY, '7227', '-o', 'x.json', '--exclude', 'A, B', '--nest-exons', '', '--gene-models', 'Gene,Pseudogene'])
   assert.deepEqual(c.datasets, [{ mineRoot: HUMAN, taxon: '9606' }, { mineRoot: FLY, taxon: '7227' }])
   assert.equal(c.out, 'x.json')
-  assert.deepEqual(c.opts, { exclude: ['A', 'B'], nestExons: [] })
+  assert.deepEqual(c.opts, { exclude: ['A', 'B'], nestExons: [], geneModels: ['Gene', 'Pseudogene'] })
   assert.throws(() => parseCli([HUMAN]), /pairs/)
   assert.throws(() => parseCli(['humanmine', '9606']), /http/)
   assert.throws(() => parseCli([HUMAN, 'human']), /taxon/)

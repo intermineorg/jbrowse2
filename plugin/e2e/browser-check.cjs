@@ -84,6 +84,26 @@ const shot = (page, name) => page.screenshot({ path: `${outDir}/${name}.png` })
       report.features = { drawnCanvases: drawn || 0, errors: s.errors }
       await s.page.close()
     })
+    // 1a. Gene models (caret introns, CDS thick, UTR thin) in both mines
+    const models = {
+      'models-human': `assembly=${ASSEMBLY}&loc=11:31,785,000..31,822,000&tracks=${ASSEMBLY}-Gene`,
+      'models-fly': 'assembly=flymine-7227&loc=2L:7,495,000..7,582,000&tracks=flymine-7227-Gene,flymine-7227-MRNA',
+      // close-up: CDS/UTR boundaries, short introns, 3' arrowheads (RapGAP1 is on the minus strand)
+      'models-detail': 'assembly=flymine-7227&loc=2L:7,497,600..7,501,800&tracks=flymine-7227-Gene',
+    }
+    for (const [name, query] of Object.entries(models)) {
+      await scenario(name, async () => {
+        const s = await open(browser, name, query)
+        const drawn = await waitFor(async () => {
+          const n = await s.page.evaluate(countDrawnCanvases)
+          return n >= 1 ? n : 0
+        })
+        await sleep(3000)
+        await shot(s.page, name)
+        report[name] = { drawnCanvases: drawn || 0, errors: s.errors }
+        await s.page.close()
+      })
+    }
     // 1b. The URL the BlueGenes tool builds (no config param: the site's own config.json)
     if (process.env.E2E_TOOL_QUERY) {
       await scenario('tool', async () => {

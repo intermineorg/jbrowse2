@@ -10,13 +10,13 @@ For a gene it looks up the chromosome, location and organism, reads the
 mine's `project.title` from `service/web-properties`, and embeds an iframe:
 
 ```
-<jbrowse2Url>?[config=<jbrowse2ConfigUrl>&]assembly=<title>-<taxon>&loc=<ref>:<start>..<end>&tracks=<assembly>-Gene,<assembly>-Transcript
+<jbrowse2Url>?[config=<jbrowse2ConfigUrl>&]assembly=<title>-<taxon>&loc=<ref>:<start>..<end>&tracks=<assembly>-Gene
 ```
 
 e.g. for PAX6 on HumanMine (`flank` 0.1):
 
 ```
-https://jbrowse2.intermine.org/?assembly=humanmine-9606&loc=11%3A31786132..31820855&tracks=humanmine-9606-Gene,humanmine-9606-Transcript
+https://jbrowse2.intermine.org/?assembly=humanmine-9606&loc=11%3A31786132..31820855&tracks=humanmine-9606-Gene
 ```
 
 The assembly name is `<project title>-<taxon id>` lower-cased, the same rule
@@ -32,7 +32,7 @@ through as is.
 | `accepts`, `classes`, `columnMapping`, `toolName`, `files`, `version` | as the JBrowse 1 tool | BlueGenes tool API; `toolName.cljs` is `bluegenesJBrowse2Tool` |
 | `jbrowse2Url` | `https://jbrowse2.intermine.org/` | root of the JBrowse 2 site; use `https://www.<mine>.org/jbrowse2/` for the sub-path fallback (docs/DEPLOY.md) |
 | `jbrowse2ConfigUrl` | `""` | config for JBrowse 2 to load; empty uses the site's own `config.json`, which is right for the shared site |
-| `tracks` | `["Gene", "Transcript"]` | InterMine classes opened on load; each must exist in the config (the generator makes one per class). `Transcript` shows exon structure |
+| `tracks` | `["Gene"]` | InterMine classes opened on load; each must exist in the config (the generator makes one per class). The generated `Gene` track draws each gene with all its transcripts and their exons |
 | `flank` | `0.1` | widen the view by this fraction of the gene length on each side |
 
 ## Installing next to the JBrowse 1 tool

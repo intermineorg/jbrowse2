@@ -4,6 +4,7 @@ import type {
   RawFeature,
   RawFeaturesResponse,
   RawNameHit,
+  RawQueryResults,
   RawRefSeq,
   RawRegionStats,
   RawSequenceResponse,
@@ -90,8 +91,10 @@ export async function fetchJson<T>(
   url: string,
   fetcher: Fetcher = (u, i) => fetch(u, i),
   signal?: AbortSignal,
+  init?: RequestInit,
 ): Promise<T> {
-  const res = await fetcher(url, signal ? { signal } : undefined)
+  const opts = signal || init ? { ...init, ...(signal ? { signal } : {}) } : undefined
+  const res = await fetcher(url, opts)
   if (!res.ok) {
     throw new Error(`HTTP ${res.status} fetching ${url}`)
   }
@@ -161,15 +164,37 @@ export const fetchNames = (
   signal?: AbortSignal,
 ) => fetchJson<RawNameHit[]>(namesUrl(baseUrl, mode, query), fetcher, signal)
 
+export function queryResultsUrl(mineRoot: string) {
+  return `${mineRoot.replace(/\/+$/, '')}/service/query/results`
+}
+
+/**
+ * Run a PathQuery (XML) against the mine's query service. POSTed as a form, so
+ * the browser sends no CORS preflight and long queries fit.
+ */
+export const fetchQueryResults = (
+  mineRoot: string,
+  xml: string,
+  fetcher?: Fetcher,
+  signal?: AbortSignal,
+) =>
+  fetchJson<RawQueryResults>(queryResultsUrl(mineRoot), fetcher, signal, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `format=json&query=${encodeURIComponent(xml)}`,
+  })
+
 export function parseStrand(s: string | number | undefined): 1 | -1 | 0 {
   const n = typeof s === 'string' ? Number.parseInt(s, 10) : s
   return n === 1 ? 1 : n === -1 ? -1 : 0
 }
 
 /**
- * Link to the feature's page in the mine. Genes carry the InterMine object id
- * (`report/Gene/5080`); other classes carry a primary identifier, which the
- * classic portal resolves. Exons have no identifier of their own.
+ * Link to the feature's page in the mine. The REST store's `uniqueID` is the
+ * primary identifier (HumanMine genes: the NCBI id `5080`, not an object id),
+ * so use InterMine's permanent URI `<mine>/<class>:<identifier>`, which
+ * redirects to the report page (`/humanmine/gene:5080` -> `report/Gene/1234788`).
+ * Exons have no identifier of their own.
  */
 export function reportUrl(
   mineRoot: string | undefined,
@@ -180,9 +205,7 @@ export function reportUrl(
     return undefined
   }
   const root = mineRoot.replace(/\/+$/, '')
-  return /^\d+$/.test(id)
-    ? `${root}/report/${encodeURIComponent(intermineClass)}/${id}`
-    : `${root}/portal.do${qs({ class: intermineClass, externalids: id })}`
+  return `${root}/${encodeURIComponent(intermineClass.toLowerCase())}:${encodeURIComponent(id)}`
 }
 
 export function toFeatureData(

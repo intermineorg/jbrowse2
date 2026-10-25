@@ -106,15 +106,14 @@ describe('feature mapping', () => {
       symbol: 'PAX6',
       name: 'paired box 6',
       intermineId: '5080',
-      intermineUrl: `${ROOT}/report/Gene/5080`,
+      intermineUrl: `${ROOT}/gene:5080`,
     })
   })
 
-  it('links by report page for object ids and portal for identifiers', () => {
-    expect(reportUrl(ROOT, 'Gene', '5080')).toBe(`${ROOT}/report/Gene/5080`)
-    expect(reportUrl(ROOT, 'MRNA', 'NM_019040.5')).toBe(
-      `${ROOT}/portal.do?class=MRNA&externalids=NM_019040.5`,
-    )
+  it('links by permanent URI (<mine>/<class>:<primary identifier>)', () => {
+    // 5080 is PAX6's NCBI id; its object id is 1234788, so report/Gene/5080 would be wrong
+    expect(reportUrl(ROOT, 'Gene', '5080')).toBe(`${ROOT}/gene:5080`)
+    expect(reportUrl(`${ROOT}/`, 'MRNA', 'NM_019040.5')).toBe(`${ROOT}/mrna:NM_019040.5`)
     expect(reportUrl(ROOT, 'Exon', 'exon-NM_1.1-3')).toBeUndefined()
     expect(reportUrl(undefined, 'Gene', '1')).toBeUndefined()
   })

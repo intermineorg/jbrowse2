@@ -21,7 +21,7 @@ const { buildJBrowse2Url } = createRequire(import.meta.url)('../../bluegenes-too
 export const TOOL_QUERY = new URL(
   buildJBrowse2Url({
     jbrowse2Url: 'http://localhost/', projectTitle: 'Humanmine', taxonId: 9606,
-    ref: '11', start: 31789026, end: 31817961, tracks: ['Gene', 'Transcript'], flank: 0.1,
+    ref: '11', start: 31789026, end: 31817961, tracks: ['Gene'], flank: 0.1,
   }),
 ).search.slice(1)
 const root = join(here, '..')

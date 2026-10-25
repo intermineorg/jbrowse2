@@ -20,6 +20,6 @@
   "version": 2,
   "jbrowse2Url": "https://jbrowse2.intermine.org/",
   "jbrowse2ConfigUrl": "",
-  "tracks": ["Gene", "Transcript"],
+  "tracks": ["Gene"],
   "flank": 0.1
 }

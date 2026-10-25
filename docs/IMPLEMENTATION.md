@@ -29,8 +29,9 @@ These settle PLAN.md section 6.
 | Feature coordinates | Interbase (0-based, half-open). `reference=true&start=0&end=10` returns ten `N`s (telomere); sequence length is always `end - start`. Use as is. |
 | Names endpoint coordinates | `start` is **1-based** (PAX6: features 31789025, names 31789026). Subtract 1 from `start`; `end` is unchanged. |
 | `stats/region` and `type` | Honoured (`type=Gene` 8 features, `type=Exon` 1206, none 1620 over 11:31-32 Mb). Density scaling per track is possible. |
-| Exon/CDS nesting | `subfeatures` is always empty, but exon `uniqueID` is `exon-<transcriptId>-<n>` and mRNA/transcript `uniqueID` is the transcript id (`NM_019040.5`). The adapter nests exons under transcripts by that convention, with no extra query. CDS and UTR returned nothing in HumanMine's data in the probed region, so they are not required. |
-| Gene to transcript link | Not in the REST data (genes and transcripts share no id). v1 shows genes as flat boxes and transcripts, with exons nested, as a separate track. |
+| Exon/CDS nesting | `subfeatures` is always empty. HumanMine exon `uniqueID` is `exon-<transcriptId>-<n>`, so step 4 nested exons by that convention. It is HumanMine-specific: FlyMine exon ids are `<gene>:<n>` (`FBgn0264895:3`), shared between transcripts. Superseded by step 13. |
+| Gene to transcript link | Not in the REST data (genes and transcripts share no id). Step 13 reads it from the query service instead. |
+| `uniqueID` | The primary identifier, not the object id (now also noted in PLAN.md): HumanMine PAX6 is `5080` (NCBI), object id `1234788`. Report links from flat tracks use the permanent URI `<mine>/gene:5080`; step 4 had wrongly used `report/Gene/5080`, fixed in step 13. |
 | Strand | String `"1"` / `"-1"`; convert to number. |
 | Type casing | Request `type=Gene`, response `type: "gene"`; `transcript`, `exon`, `mRNA` likewise lower-cased/unchanged. |
 | Names `tracks` | Class names (`Gene`, `Region`, ...), used to pick the track a hit opens. |
@@ -111,6 +112,32 @@ These settle PLAN.md section 6.
   `@intermine/bluegenes-jbrowse-tool` building JBrowse 2 URLs, with the URL
   builder unit-tested and the assembly naming rule shared with the
   generator.
+
+### Gene structure (added after the first review)
+
+JBrowse 1 on these mines showed genes as single boxes (FlyMine) or as a
+density histogram only (HumanMine); the maintainer asked for exon/intron
+structure with caret introns and a clear strand. The data is in every mine,
+but not in the JBrowse 1 REST store: there `subfeatures` is always empty and
+the gene > transcript > exon links exist only in the main model. So no
+JBrowse 1 or 2 configuration of the REST store alone could draw gene models.
+
+- [x] **13. Gene models and caret introns.** `InterMineGeneModelAdapter`
+  reads `Gene.transcripts.exons` and `Transcript.CDSs` from
+  `service/query/results` (two PathQueries per region, `OVERLAPS` on
+  `chromosomeLocation`, organism by taxon; verified on HumanMine and FlyMine,
+  CORS allowed, ~2 s for PAX6's 53 transcripts). CDS spans are clipped to the
+  exons, so JBrowse infers UTRs and draws them thinner (FlyMine; HumanMine
+  loads no CDS, so its exons are uniform). A pluggable JBrowse glyph
+  (`GlyphType`, JBrowse 4.x) redraws InterMine features with structure using
+  carets between exons and an arrowhead at the 3' end, from JBrowse's own
+  layout. The generator now makes the `Gene` track a gene-model track (same
+  track id, so name search and the BlueGenes tool open it) and the
+  `Transcript`/`MRNA` tracks transcript-level gene-model tracks, 300 px tall;
+  the tool opens `Gene` only. Report links fixed (above). Tests: query
+  building and model assembly against recorded HumanMine and FlyMine
+  responses, the drawing code with a recording canvas, live tests on both
+  mines, and browser scenarios with screenshots (`models-*.png`).
 
 ### Wrap-up
 

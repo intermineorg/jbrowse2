@@ -5,7 +5,7 @@ import { writeFileSync } from 'node:fs'
 import { parseArgs } from 'node:util'
 import { fileURLToPath } from 'node:url'
 
-import { DEFAULT_EXCLUDE, DEFAULT_NEST_EXONS, DEFAULT_PLUGIN_URL, generateConfig } from './lib.mjs'
+import { DEFAULT_EXCLUDE, DEFAULT_GENE_MODELS, DEFAULT_NEST_EXONS, DEFAULT_PLUGIN_URL, generateConfig } from './lib.mjs'
 
 const HELP = `Usage: generate.mjs <mineRoot> <taxon> [<mineRoot> <taxon> ...] [options]
 
@@ -18,7 +18,10 @@ Options:
       --plugin-url <url>  plugin bundle URL (default ${DEFAULT_PLUGIN_URL})
       --exclude <A,B>     classes to leave out (default ${DEFAULT_EXCLUDE.join(',')})
       --include <A,B>     only these classes (overrides --exclude)
-      --nest-exons <A,B>  classes drawn with nested exons (default ${DEFAULT_NEST_EXONS.join(',')})
+      --gene-models <A,B> classes drawn as genes with transcripts, exons and CDS
+                          (default ${DEFAULT_GENE_MODELS.join(',')})
+      --nest-exons <A,B>  classes drawn as transcripts with exons and CDS
+                          (default ${DEFAULT_NEST_EXONS.join(',')})
   -h, --help
 `
 
@@ -31,6 +34,7 @@ export function parseCli(argv) {
       'plugin-url': { type: 'string' },
       exclude: { type: 'string' },
       include: { type: 'string' },
+      'gene-models': { type: 'string' },
       'nest-exons': { type: 'string' },
       help: { type: 'boolean', short: 'h' },
     },
@@ -54,6 +58,7 @@ export function parseCli(argv) {
       ...(values['plugin-url'] ? { pluginUrl: values['plugin-url'] } : {}),
       ...(values.exclude !== undefined ? { exclude: list(values.exclude) } : {}),
       ...(values.include !== undefined ? { include: list(values.include) } : {}),
+      ...(values['gene-models'] !== undefined ? { geneModels: list(values['gene-models']) } : {}),
       ...(values['nest-exons'] !== undefined ? { nestExons: list(values['nest-exons']) } : {}),
     },
   }

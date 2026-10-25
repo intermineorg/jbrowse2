@@ -50,7 +50,7 @@ test('embeds an iframe pointing at JBrowse 2 for the gene', async () => {
 	const url = new URL(iframe.src);
 	assert.equal(url.origin, 'https://jbrowse2.intermine.org');
 	assert.equal(url.searchParams.get('assembly'), 'humanmine-9606');
-	assert.equal(url.searchParams.get('tracks'), 'humanmine-9606-Gene,humanmine-9606-Transcript');
+	assert.equal(url.searchParams.get('tracks'), 'humanmine-9606-Gene');
 	assert.equal(url.searchParams.get('loc'), '11:31786132..31820855');
 	assert.equal(url.searchParams.has('config'), false);
 });

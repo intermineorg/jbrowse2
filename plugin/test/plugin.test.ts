@@ -15,7 +15,7 @@ describe('InterMinePlugin', () => {
   it('registers its adapters with a real PluginManager', () => {
     const pm = new PluginManager([new InterMinePlugin()]).createPluggableElements()
     pm.configure()
-    for (const name of ['InterMineFeatureAdapter', 'InterMineSequenceAdapter']) {
+    for (const name of ['InterMineFeatureAdapter', 'InterMineGeneModelAdapter', 'InterMineSequenceAdapter']) {
       const t = pm.getAdapterType(name)
       expect(t, name).toBeDefined()
       expect(t!.adapterMetadata?.category).toBe('InterMine')
@@ -36,6 +36,20 @@ describe('InterMinePlugin', () => {
     expect(readConfObject(conf, 'intermineClass')).toBe('Transcript')
     expect(readConfObject(conf, 'nestExons')).toBe(true)
     expect(readConfObject(conf, 'exonType')).toBe('Exon')
+  })
+
+  it('accepts the documented gene model adapter config', () => {
+    const pm = new PluginManager([new InterMinePlugin()]).createPluggableElements()
+    pm.configure()
+    const conf = pm.getAdapterType('InterMineGeneModelAdapter')!.configSchema.create({
+      type: 'InterMineGeneModelAdapter',
+      baseUrl: 'https://x/service/jbrowse/7227',
+      intermineClass: 'MRNA',
+      level: 'transcript',
+    })
+    expect(readConfObject(conf, 'intermineClass')).toBe('MRNA')
+    expect(readConfObject(conf, 'level')).toBe('transcript')
+    expect(readConfObject(conf, 'mineRoot')).toBe('')
   })
 
   it('text search config carries the slots JBrowse needs to select the adapter', () => {

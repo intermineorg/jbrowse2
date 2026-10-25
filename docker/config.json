@@ -478,10 +478,18 @@
         "humanmine-9606"
       ],
       "adapter": {
-        "type": "InterMineFeatureAdapter",
+        "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
-        "intermineClass": "Gene"
-      }
+        "intermineClass": "Gene",
+        "level": "gene"
+      },
+      "displays": [
+        {
+          "type": "LinearBasicDisplay",
+          "displayId": "humanmine-9606-Gene-LinearBasicDisplay",
+          "height": 300
+        }
+      ]
     },
     {
       "type": "FeatureTrack",
@@ -654,11 +662,18 @@
         "humanmine-9606"
       ],
       "adapter": {
-        "type": "InterMineFeatureAdapter",
+        "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
         "intermineClass": "MRNA",
-        "nestExons": true
-      }
+        "level": "transcript"
+      },
+      "displays": [
+        {
+          "type": "LinearBasicDisplay",
+          "displayId": "humanmine-9606-MRNA-LinearBasicDisplay",
+          "height": 300
+        }
+      ]
     },
     {
       "type": "FeatureTrack",
@@ -1503,11 +1518,18 @@
         "humanmine-9606"
       ],
       "adapter": {
-        "type": "InterMineFeatureAdapter",
+        "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
         "intermineClass": "Transcript",
-        "nestExons": true
-      }
+        "level": "transcript"
+      },
+      "displays": [
+        {
+          "type": "LinearBasicDisplay",
+          "displayId": "humanmine-9606-Transcript-LinearBasicDisplay",
+          "height": 300
+        }
+      ]
     },
     {
       "type": "FeatureTrack",
@@ -1920,10 +1942,18 @@
         "flymine-7227"
       ],
       "adapter": {
-        "type": "InterMineFeatureAdapter",
+        "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
-        "intermineClass": "Gene"
-      }
+        "intermineClass": "Gene",
+        "level": "gene"
+      },
+      "displays": [
+        {
+          "type": "LinearBasicDisplay",
+          "displayId": "flymine-7227-Gene-LinearBasicDisplay",
+          "height": 300
+        }
+      ]
     },
     {
       "type": "FeatureTrack",
@@ -2032,11 +2062,18 @@
         "flymine-7227"
       ],
       "adapter": {
-        "type": "InterMineFeatureAdapter",
+        "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
         "intermineClass": "MRNA",
-        "nestExons": true
-      }
+        "level": "transcript"
+      },
+      "displays": [
+        {
+          "type": "LinearBasicDisplay",
+          "displayId": "flymine-7227-MRNA-LinearBasicDisplay",
+          "height": 300
+        }
+      ]
     },
     {
       "type": "FeatureTrack",
@@ -2401,11 +2438,18 @@
         "flymine-7227"
       ],
       "adapter": {
-        "type": "InterMineFeatureAdapter",
+        "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
         "intermineClass": "Transcript",
-        "nestExons": true
-      }
+        "level": "transcript"
+      },
+      "displays": [
+        {
+          "type": "LinearBasicDisplay",
+          "displayId": "flymine-7227-Transcript-LinearBasicDisplay",
+          "height": 300
+        }
+      ]
     },
     {
       "type": "FeatureTrack",

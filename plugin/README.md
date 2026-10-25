@@ -2,7 +2,8 @@
 
 A [JBrowse 2](https://jbrowse.org/jb2/) plugin that reads genome data live
 from an [InterMine](https://intermine.org) web service, using the same
-`service/jbrowse` endpoints that InterMine already exposes for JBrowse 1. No
+`service/jbrowse` endpoints that InterMine already exposes for JBrowse 1, plus
+the standard query service (`service/query/results`) for gene structure. No
 data is copied out of the mine.
 
 See [../PLAN.md](../PLAN.md) for the design and
@@ -22,19 +23,23 @@ npm run test:e2e    # built plugin inside real jbrowse-web in headless Chromium
 
 ### Live and browser tests
 
-`test:live` skips itself (with a warning) when HumanMine is unreachable;
+`test:live` (HumanMine, and FlyMine for gene models) skips itself (with a
+warning) when HumanMine is unreachable;
 set `INTERMINE_BASE` to point it at another mine's
 `.../service/jbrowse/<taxon>`.
 
 `test:e2e` needs `npm run build` first. It downloads the pinned jbrowse-web
 release (SHA-256 checked) into `.e2e-cache/`, serves it with the plugin and a
 generated config on localhost, and drives it in headless Chromium against
-live HumanMine. It asserts that:
+live HumanMine and FlyMine. It asserts that:
 
-- the Gene and exon-nested Transcript tracks draw canvases with no page or
-  console errors;
+- the Gene and Transcript tracks draw canvases with no page or console
+  errors;
+- gene models draw for PAX6 (HumanMine) and RapGAP1 (FlyMine), including a
+  close-up with CDS, UTRs and caret introns (`models-*.png`);
 - the reference sequence shows at base-pair zoom;
-- typing `PAX6` in the location box navigates to the gene.
+- typing `PAX6` in the location box navigates to the gene;
+- the URL the BlueGenes tool builds opens the right view.
 
 Chromium comes from `$E2E_CHROME` (a local binary; `puppeteer` must be
 resolvable) or, failing that, from Docker
@@ -63,7 +68,7 @@ Features of one InterMine class. Config slots:
 | `baseUrl` | | `<mine root>/service/jbrowse/<taxon>`, as in the mine's `trackList.json` |
 | `intermineClass` | `Gene` | InterMine class to query (`Gene`, `Transcript`, `Exon`, ...). Named `intermineClass` rather than `type` because `type` is JBrowse's adapter discriminator |
 | `mineRoot` | derived from `baseUrl` | used for the `intermineUrl` link on each feature |
-| `nestExons` | `false` | for transcript tracks: also fetch `exonType` features and nest them as subfeatures (matched by the transcript id embedded in each exon id) |
+| `nestExons` | `false` | for transcript tracks: also fetch `exonType` features and nest them as subfeatures, matched by the transcript id embedded in HumanMine exon ids (`exon-<transcript>-<n>`). Works for HumanMine only; FlyMine exon ids are `<gene>:<n>`. Superseded by `InterMineGeneModelAdapter`, which the generator now uses |
 | `exonType` | `Exon` | class used for exons |
 
 ```json
@@ -84,6 +89,53 @@ Coordinates are used as the server returns them (interbase). Feature density
 for the "zoom in" prompt comes from `stats/region` with the class as `type`.
 Each feature carries `intermineId`, `intermineClass` and, where the mine has a
 page for it, `intermineUrl`.
+
+### InterMineGeneModelAdapter
+
+Genes with all their transcripts, and each transcript's exons and coding
+region, as JBrowse draws a GFF3 gene. The REST store returns every feature
+flat and only implies how exons belong to transcripts through mine-specific
+ids, so this adapter reads the real `Gene.transcripts`, `Transcript.exons`
+and `Transcript.CDSs` collections from the mine's query service: two
+PathQueries per region (structure, outer-joined so genes without transcripts
+still show; and CDS), POSTed as forms so there is no CORS preflight.
+
+Takes every `InterMineFeatureAdapter` slot (reference names and the density
+count still come from `baseUrl`) plus:
+
+| Slot | Default | Meaning |
+|---|---|---|
+| `level` | `gene` | `gene`: `intermineClass` has transcripts (`Gene`). `transcript`: it has exons itself (`Transcript`, `MRNA`) |
+
+```json
+"adapter": {
+  "type": "InterMineGeneModelAdapter",
+  "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+  "intermineClass": "Gene",
+  "level": "gene"
+}
+```
+
+- Whole genes are returned for any region they overlap, so a model is never
+  cut at a block edge.
+- A CDS is clipped to the exons, so it works whether a mine stores one span
+  from start to stop codon (FlyMine) or one per exon. Transcripts with a CDS
+  are typed `mRNA` and JBrowse infers the UTRs, drawn thinner; transcripts
+  without one (all of HumanMine at present, which loads no CDS) are typed
+  `transcript` and their exons are drawn full height.
+- Genes are labelled by symbol with the full name as description, and link to
+  `report/<Class>/<object id>`; transcripts likewise.
+
+### Caret intron glyph
+
+The plugin registers a JBrowse glyph (`InterMineIntronHat`) for InterMine
+features that have exon structure (they carry `intermineClass`; other tracks
+keep JBrowse's own glyphs). It draws the layout JBrowse has already computed,
+so packing, labels, clicks and mouse-overs are unchanged, but each intron is a
+caret ("hat") from exon to exon instead of a straight line, and an arrowhead
+marks the 3' end of each transcript, pointing in the direction of
+transcription. Colours come from the track's renderer settings (`color1` for
+exons/CDS, `color3` for UTRs, `color2` for introns and arrows).
 
 ### InterMineSequenceAdapter
 
@@ -126,6 +178,10 @@ belongs to several.
 Every feature has `intermineId`, `intermineClass` and `intermineUrl`
 attributes. JBrowse 2 shows string values starting with `http(s)://` as links
 in the feature panel, so `intermineUrl` is a clickable link to the mine's
-report page (genes: `/report/Gene/<id>`; other classes with a primary
-identifier: `/portal.do?class=<Class>&externalids=<id>`; exons: none). No
-custom widget is needed.
+report page. Gene models carry object ids and link to `report/<Class>/<id>`.
+Flat tracks only have the primary identifier (HumanMine genes: the NCBI id,
+e.g. `5080` for PAX6, whose object id is `1234788`), so they use InterMine's
+permanent URI `<mine>/<class>:<identifier>` (`/humanmine/gene:5080`), which
+redirects to the report page. Permanent URIs are configured per class: they
+work for genes on HumanMine and FlyMine but not, for example, for FlyMine
+mRNAs. Exons have no link. No custom widget is needed.

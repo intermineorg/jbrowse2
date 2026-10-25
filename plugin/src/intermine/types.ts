@@ -56,6 +56,11 @@ export interface RawNameHit {
   }
 }
 
+/** `service/query/results?format=json`: one row per result, cells in view order. */
+export interface RawQueryResults extends ServiceEnvelope {
+  results: (string | number | null)[][]
+}
+
 export type Fetcher = (url: string, init?: RequestInit) => Promise<Response>
 
 /** A feature as the adapters hand it to JBrowse (before SimpleFeature wrapping). */
@@ -68,6 +73,7 @@ export interface InterMineFeatureData {
   type: string
   name?: string
   symbol?: string
+  description?: string
   intermineId: string
   intermineClass: string
   intermineUrl?: string

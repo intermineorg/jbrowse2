@@ -59,13 +59,13 @@ describe('InterMineFeatureAdapter', () => {
     expect(pax6.get('end')).toBe(31817961)
     expect(pax6.get('strand')).toBe(-1)
     expect(pax6.get('type')).toBe('gene')
-    expect(pax6.get('intermineUrl')).toBe(`${ROOT}/report/Gene/5080`)
+    expect(pax6.get('intermineUrl')).toBe(`${ROOT}/gene:5080`)
   })
 
   it('uses mineRoot from config when given', async () => {
     mockMine()
     const feats = await collect(make({ mineRoot: 'https://example.org/m' }))
-    expect(feats[0]!.get('intermineUrl')).toMatch(/^https:\/\/example\.org\/m\/report\/Gene\//)
+    expect(feats[0]!.get('intermineUrl')).toMatch(/^https:\/\/example\.org\/m\/gene:/)
   })
 
   it('does not nest by default', async () => {

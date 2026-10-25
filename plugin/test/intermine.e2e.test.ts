@@ -1,5 +1,5 @@
 // Loads the built plugin into a real jbrowse-web in headless Chromium, pointed at
-// live HumanMine. Needs: `npm run build`, network access, and Chromium (E2E_CHROME)
+// live HumanMine and FlyMine. Needs: `npm run build`, network access, and Chromium (E2E_CHROME)
 // or Docker. Screenshots land in test-screenshots/.
 import { join } from 'node:path'
 
@@ -7,9 +7,13 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { ensureJBrowseWeb, runBrowserCheck, startServer } from '../e2e/run.mjs'
 
+type Drawn = { drawnCanvases: number; errors: string[]; failure?: string }
 type Report = {
   skipped?: string
-  features?: { drawnCanvases: number; errors: string[]; failure?: string }
+  features?: Drawn
+  'models-human'?: Drawn
+  'models-fly'?: Drawn
+  'models-detail'?: Drawn
   sequence?: { sequenceText: boolean; errors: string[]; failure?: string }
   tool?: { drawnCanvases: number; location: string; errors: string[]; failure?: string }
   search?: { location: string; errors: string[]; failure?: string }
@@ -27,13 +31,24 @@ beforeAll(async () => {
 
 afterAll(() => server?.close())
 
-describe('JBrowse 2 with the InterMine plugin (live HumanMine)', () => {
+describe('JBrowse 2 with the InterMine plugin (live HumanMine and FlyMine)', () => {
   it('draws gene and exon-nested transcript tracks with no page errors', ctx => {
     if (report.skipped) return ctx.skip()
     expect(report.features?.failure).toBeUndefined()
     expect(report.features!.drawnCanvases).toBeGreaterThanOrEqual(2)
     expect(report.features!.errors).toEqual([])
   })
+
+  // screenshots models-*.png show the caret introns, CDS/UTR and 3' arrowheads
+  for (const name of ['models-human', 'models-fly', 'models-detail'] as const) {
+    it(`draws gene models with no page errors (${name})`, ctx => {
+      if (report.skipped) return ctx.skip()
+      const r = report[name]
+      expect(r?.failure).toBeUndefined()
+      expect(r!.drawnCanvases).toBeGreaterThanOrEqual(1)
+      expect(r!.errors).toEqual([])
+    })
+  }
 
   it('shows the reference sequence at base-pair zoom', ctx => {
     if (report.skipped) return ctx.skip()
