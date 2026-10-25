@@ -1,0 +1,9 @@
+[
+{"name":"PAX6-AS1","location":{"ref":"11","start":31816566,"objectName":"440034","end":31887041,"tracks":["Gene","Region","SequenceFeature","BiologicalRegion"]}},
+{"name":"PAX6 upstream antisense RNA","location":{"ref":"11","start":31826567,"objectName":"103157000","end":31829303,"tracks":["Gene","Region","SequenceFeature","BiologicalRegion"]}},
+{"name":"PAX6","location":{"ref":"11","start":31789026,"objectName":"5080","end":31817961,"tracks":["Gene","Region","SequenceFeature","BiologicalRegion"]}},
+{"name":"PAX6 antisense RNA 1","location":{"ref":"11","start":31816566,"objectName":"exon-NR_033971.1-1","end":31816639,"tracks":["Region","SequenceFeature","Exon","BiologicalRegion"]}},
+{"name":"PAX6 antisense RNA 1","location":{"ref":"11","start":31885294,"objectName":"exon-NR_033971.1-2","end":31885374,"tracks":["Region","SequenceFeature","Exon","BiologicalRegion"]}},
+{"name":"PAX6 antisense RNA 1","location":{"ref":"11","start":31885541,"objectName":"exon-NR_033971.1-3","end":31887041,"tracks":["Region","SequenceFeature","Exon","BiologicalRegion"]}},
+{"name":"PAX6 upstream antisense RNA","location":{"ref":"11","start":31826567,"objectName":"exon-NR_117094.1-1","end":31829303,"tracks":["Region","SequenceFeature","Exon","BiologicalRegion"]}}
+]

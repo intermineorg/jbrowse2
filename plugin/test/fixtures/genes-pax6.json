@@ -1,0 +1,6 @@
+{"features":[
+{"symbol":"PAX6-AS1","subfeatures":[],"strand":"1","name":"PAX6 antisense RNA 1","start":31816565,"end":31887041,"type":"gene","uniqueID":"440034"},
+{"symbol":"PAUPAR","subfeatures":[],"strand":"1","name":"PAX6 upstream antisense RNA","start":31826566,"end":31829303,"type":"gene","uniqueID":"103157000"},
+{"symbol":"PAX6","subfeatures":[],"strand":"-1","name":"paired box 6","start":31789025,"end":31817961,"type":"gene","uniqueID":"5080"},
+{"symbol":"ELP4","subfeatures":[],"strand":"1","name":"elongator acetyltransferase complex subunit 4","start":31509766,"end":31790324,"type":"gene","uniqueID":"26610"}
+],"executionTime":"2026.10.25 00:59::38","wasSuccessful":true,"error":null,"statusCode":200}

@@ -44,7 +44,7 @@ These settle PLAN.md section 6.
   (`jbrowse-plugin-intermine`), TypeScript, rollup UMD build following the
   GMOD template, vitest, an empty `Plugin` subclass, a test that the plugin
   class installs. README for the package.
-- [ ] **3. InterMine client.** Pure functions with no JBrowse dependency:
+- [x] **3. InterMine client.** Pure functions with no JBrowse dependency:
   URL builders, interbase conversion, strand parsing, response validation
   (`wasSuccessful`), feature mapping, transcript/exon nesting. Unit tests
   with fixtures captured from HumanMine.
