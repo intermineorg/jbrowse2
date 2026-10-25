@@ -35,6 +35,12 @@ These settle PLAN.md section 6.
 | Type casing | Request `type=Gene`, response `type: "gene"`; `transcript`, `exon`, `mRNA` likewise lower-cased/unchanged. |
 | Names `tracks` | Class names (`Gene`, `Region`, ...), used to pick the track a hit opens. |
 
+## Deviations from PLAN.md
+
+- The feature adapter's InterMine class slot is `intermineClass`, not `type`
+  (`type` is the adapter discriminator in a JBrowse 2 config; using it for
+  both silently queries the wrong class).
+
 ## Steps
 
 ### Phase 1: plugin (`plugin/`)
@@ -48,7 +54,7 @@ These settle PLAN.md section 6.
   URL builders, interbase conversion, strand parsing, response validation
   (`wasSuccessful`), feature mapping, transcript/exon nesting. Unit tests
   with fixtures captured from HumanMine.
-- [ ] **4. Feature adapter** (`InterMineFeatureAdapter`): config schema,
+- [x] **4. Feature adapter** (`InterMineFeatureAdapter`): config schema,
   `getRefNames`, `getRegions`-free `getFeatures`, `freeResources`,
   `getRegionStats` / `estimateRegionsStats` using `stats/region`. Exon
   nesting when `nestExons` is set. Tests.
