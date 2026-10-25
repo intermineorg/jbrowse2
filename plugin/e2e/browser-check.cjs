@@ -38,7 +38,7 @@ async function waitFor(fn, timeout = 90000, step = 1000) {
   return false
 }
 
-async function open(browser, name, query) {
+async function open(browser, name, query, withConfig = true) {
   const page = await browser.newPage()
   await page.setViewport({ width: 1400, height: 900 })
   const errors = []
@@ -47,7 +47,7 @@ async function open(browser, name, query) {
     if (m.type() === 'error') errors.push(`console: ${m.text()}`)
   })
   page.on('requestfailed', r => errors.push(`requestfailed: ${r.url()} ${r.failure()?.errorText}`))
-  await page.goto(`${baseUrl}/?config=config.json&${query}`, { waitUntil: 'domcontentloaded' })
+  await page.goto(`${baseUrl}/?${withConfig ? 'config=config.json&' : ''}${query}`, { waitUntil: 'domcontentloaded' })
   return { page, errors, name }
 }
 
@@ -84,6 +84,23 @@ const shot = (page, name) => page.screenshot({ path: `${outDir}/${name}.png` })
       report.features = { drawnCanvases: drawn || 0, errors: s.errors }
       await s.page.close()
     })
+    // 1b. The URL the BlueGenes tool builds (no config param: the site's own config.json)
+    if (process.env.E2E_TOOL_QUERY) {
+      await scenario('tool', async () => {
+        const s = await open(browser, 'tool', process.env.E2E_TOOL_QUERY, false)
+        const drawn = await waitFor(async () => {
+          const n = await s.page.evaluate(countDrawnCanvases)
+          return n >= 2 ? n : 0
+        })
+        const box = 'input[placeholder="Search for location"]'
+        await s.page.waitForSelector(box, { timeout: 60000 })
+        const location = await s.page.$eval(box, el => el.value)
+        await sleep(2000)
+        await shot(s.page, 'tool')
+        report.tool = { drawnCanvases: drawn || 0, location, errors: s.errors }
+        await s.page.close()
+      })
+    }
     // 2. Reference sequence at base-pair zoom
     await scenario('sequence', async () => {
       const s = await open(

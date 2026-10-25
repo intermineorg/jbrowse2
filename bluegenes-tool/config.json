@@ -1,0 +1,25 @@
+{
+  "accepts": ["id"],
+  "classes": ["Gene"],
+  "columnMapping": {
+    "Gene": {
+      "id": "primaryIdentifier"
+    },
+    "Protein": {
+      "id": "primaryAccession"
+    }
+  },
+  "files": {
+    "css": "dist/style.css",
+    "js": "dist/bundle.js"
+  },
+  "toolName": {
+    "human": "JBrowse 2 Genome Browser",
+    "cljs": "bluegenesJBrowse2Tool"
+  },
+  "version": 2,
+  "jbrowse2Url": "https://jbrowse2.intermine.org/",
+  "jbrowse2ConfigUrl": "",
+  "tracks": ["Gene", "Transcript"],
+  "flank": 0.1
+}

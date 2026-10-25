@@ -9,11 +9,21 @@ import { createHash } from 'node:crypto'
 import { createReadStream, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { dirname, extname, join, normalize, resolve } from 'node:path'
+import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
 import { e2eConfig, PLUGIN_FILE } from './config.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
+const { buildJBrowse2Url } = createRequire(import.meta.url)('../../bluegenes-tool/src/url.js')
+
+// The query string the BlueGenes tool would build for PAX6 (gene 5080) on HumanMine.
+export const TOOL_QUERY = new URL(
+  buildJBrowse2Url({
+    jbrowse2Url: 'http://localhost/', projectTitle: 'Humanmine', taxonId: 9606,
+    ref: '11', start: 31789026, end: 31817961, tracks: ['Gene', 'Transcript'], flank: 0.1,
+  }),
+).search.slice(1)
 const root = join(here, '..')
 export const JBROWSE_VERSION = '4.3.0'
 export const JBROWSE_SHA256 = 'a9d42417102ee088a1cbf85c6d857c1065d66984ea6c56f3115ef9dd56d76702'
@@ -91,13 +101,13 @@ export async function runBrowserCheck(port, outDirArg) {
   let out
   if (process.env.E2E_CHROME) {
     out = await runProcess('node', [join(here, 'browser-check.cjs'), url, outDir], {
-      E2E_CHROME: process.env.E2E_CHROME, E2E_PROXY: proxy,
+      E2E_CHROME: process.env.E2E_CHROME, E2E_PROXY: proxy, E2E_TOOL_QUERY: TOOL_QUERY,
     })
   } else if (sh('docker', ['image', 'inspect', IMAGE]) || sh('docker', ['pull', '-q', IMAGE])) {
     execFileSync('chmod', ['777', outDir])
     out = await runProcess('docker', [
       'run', '--rm', '--network', 'host',
-      '-e', `E2E_PROXY=${proxy}`,
+      '-e', `E2E_PROXY=${proxy}`, '-e', `E2E_TOOL_QUERY=${TOOL_QUERY}`,
       '-v', `${here}:/e2e:ro`, '-v', `${outDir}:/out`,
       '--entrypoint', 'sh', IMAGE,
       '-c', `cd /usr/src/app && NODE_PATH=/usr/src/app/node_modules node /e2e/browser-check.cjs ${url} /out`,

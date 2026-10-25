@@ -107,7 +107,7 @@ These settle PLAN.md section 6.
 
 ### Phase 4: BlueGenes tool
 
-- [ ] **11. Tool** (`bluegenes-tool/`): fork of
+- [x] **11. Tool** (`bluegenes-tool/`): fork of
   `@intermine/bluegenes-jbrowse-tool` building JBrowse 2 URLs, with the URL
   builder unit-tested and the assembly naming rule shared with the
   generator.

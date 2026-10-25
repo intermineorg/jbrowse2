@@ -11,6 +11,7 @@ type Report = {
   skipped?: string
   features?: { drawnCanvases: number; errors: string[]; failure?: string }
   sequence?: { sequenceText: boolean; errors: string[]; failure?: string }
+  tool?: { drawnCanvases: number; location: string; errors: string[]; failure?: string }
   search?: { location: string; errors: string[]; failure?: string }
 }
 
@@ -52,5 +53,18 @@ describe('JBrowse 2 with the InterMine plugin (live HumanMine)', () => {
     expect(end).toBeGreaterThanOrEqual(31817961)
     expect(end! - start!).toBeLessThan(100_000)
     expect(report.search!.errors).toEqual([])
+  })
+
+  it('opens the view the BlueGenes tool links to (assembly, loc and tracks from the URL)', ctx => {
+    if (report.skipped) return ctx.skip()
+    expect(report.tool?.failure).toBeUndefined()
+    // requested 11:31786132..31820855 (PAX6 plus 10% flank); JBrowse snaps to whole pixels
+    const m = /^11:([\d,]+)\.\.([\d,]+)$/.exec(report.tool!.location)
+    expect(m, report.tool!.location).not.toBeNull()
+    const [start, end] = [m![1]!, m![2]!].map(x => Number(x.replaceAll(',', '')))
+    expect(Math.abs(start! - 31786132)).toBeLessThan(100)
+    expect(Math.abs(end! - 31820855)).toBeLessThan(100)
+    expect(report.tool!.drawnCanvases).toBeGreaterThanOrEqual(2)
+    expect(report.tool!.errors).toEqual([])
   })
 })

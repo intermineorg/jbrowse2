@@ -1,0 +1,22 @@
+{
+  "name": "@intermine/bluegenes-jbrowse2-tool",
+  "version": "0.1.0",
+  "description": "BlueGenes report page tool that embeds JBrowse 2 for a gene, reading data live from the mine",
+  "main": "src/index.js",
+  "homepage": "https://github.com/intermineorg/jbrowse2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intermineorg/jbrowse2.git",
+    "directory": "bluegenes-tool"
+  },
+  "scripts": {
+    "build": "esbuild src/index.js --bundle --minify --global-name=bluegenesJBrowse2Tool --outfile=dist/bundle.js && cp src/style.css dist/style.css",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "keywords": ["bluegenes-intermine-tool"],
+  "license": "MIT",
+  "files": ["config.json", "dist", "src", "demo.html", "README.md"],
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
