@@ -97,7 +97,10 @@ URLs; they are not, in 4.3.0.)
    `cp docker-compose.override.yml.example docker-compose.override.yml`, list
    your mines' networks, `docker-compose up -d`.
 2. In each mine's front end (docker_template's `nginx/nginx.conf.template`,
-   beside `/jbrowse/`):
+   beside `/jbrowse/`). docker_template includes this location from commit
+   03b5411 ("nginx: optional /jbrowse2/ route"): with a mine directory
+   updated past that, skip the edit and only rebuild nginx (step 3). For an
+   older copy, add:
 
    ```nginx
    location /jbrowse2/ {
@@ -118,6 +121,14 @@ URLs; they are not, in 4.3.0.)
    starts when the container is absent (requests then give 502).
 3. Rebuild, test and restart each mine's nginx (below).
 4. The BlueGenes tool's `jbrowse2Url` must then be `https://www.<mine>.org/jbrowse2/`.
+   Install it and add it to the mine's report page layout as described in
+   `bluegenes-tool/README.md`.
+5. Check the deployment with
+   [intermineorg/mine-tests](https://github.com/intermineorg/mine-tests): set
+   `jbrowse2` for the mine in its `mines.toml` and list
+   `bluegenesJBrowse2Tool` under `tools.rendered`, then
+   `pytest tests/service -k jbrowse2 --mine <mine>` and
+   `./run-browser-tests.sh --browser chromium --mine <mine> -k jbrowse`.
 
 #### Restarting and testing a mine's nginx after editing its config
 
