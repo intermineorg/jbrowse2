@@ -77,3 +77,30 @@ four at a time, clamped to the reference length.
   }
 }
 ```
+
+### InterMineTextSearchAdapter
+
+Finds features by name in the location box, via `names/<taxon>?startswith=`
+(or `equals=` for exact searches). Exon rows and duplicates are dropped.
+`trackIdPrefix` (e.g. `humanmine-9606-`) lets a result open the matching
+class track; `preferredClass` (default `Gene`) picks which class when a hit
+belongs to several.
+
+```json
+"aggregateTextSearchAdapters": [{
+  "type": "InterMineTextSearchAdapter",
+  "textSearchAdapterId": "humanmine-9606-names",
+  "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+  "trackIdPrefix": "humanmine-9606-",
+  "assemblyNames": ["humanmine-9606"]
+}]
+```
+
+## Links back to the mine
+
+Every feature has `intermineId`, `intermineClass` and `intermineUrl`
+attributes. JBrowse 2 shows string values starting with `http(s)://` as links
+in the feature panel, so `intermineUrl` is a clickable link to the mine's
+report page (genes: `/report/Gene/<id>`; other classes with a primary
+identifier: `/portal.do?class=<Class>&externalids=<id>`; exons: none). No
+custom widget is needed.

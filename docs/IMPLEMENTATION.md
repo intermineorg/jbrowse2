@@ -60,11 +60,12 @@ These settle PLAN.md section 6.
   nesting when `nestExons` is set. Tests.
 - [x] **5. Sequence adapter** (`InterMineSequenceAdapter`) with chunking so
   requests stay bounded. Tests.
-- [ ] **6. Text-search adapter** (`InterMineTextSearchAdapter`), with the
+- [x] **6. Text-search adapter** (`InterMineTextSearchAdapter`), with the
   1-based to interbase fix. Tests.
-- [ ] **7. Plugin wiring and feature-detail link.** Register adapters, text
-  search adapter type, and an `intermineUrl` link in feature details
-  ("Open in HumanMine"). Tests for `install`.
+- [x] **7. Plugin wiring and feature-detail link.** Register adapters and the
+  text-search adapter type. The `intermineUrl` attribute is rendered as a
+  link by JBrowse's own feature panel, so no widget is needed. Test against a
+  real `PluginManager`.
 - [ ] **8. Live and browser acceptance.** `test:live` hits HumanMine through
   the adapters; `test:e2e` serves a built bundle plus a `jbrowse-web` page
   with a hand-written 9606 config in headless Chromium and asserts a drawn

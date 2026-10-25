@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "description": "JBrowse 2 plugin that reads genome data live from an InterMine web service",
   "license": "MIT",
-  "keywords": ["jbrowse", "jbrowse2", "intermine"],
+  "keywords": [
+    "jbrowse",
+    "jbrowse2",
+    "intermine"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/intermineorg/jbrowse2.git",
@@ -11,7 +15,10 @@
   },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
@@ -24,6 +31,7 @@
   },
   "devDependencies": {
     "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@jbrowse/core": "^4.3.0",
     "@jbrowse/mobx-state-tree": "^5.6.0",
     "@mui/material": "^7.3.10",
