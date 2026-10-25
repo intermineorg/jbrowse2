@@ -27,6 +27,9 @@ docker ps --filter name=jbrowse2 --format '{{.Names}} {{.Status}}'   # ... (heal
 curl -s http://localhost:14881/config.json | head -c 200
 ```
 
+To undo: `docker-compose down` in that directory (the mines are not
+affected; any `/jbrowse2/` route on them then answers 502).
+
 The last command ends with `(23) Failed writing body`: that is only curl
 noticing that `head` stopped reading after 200 bytes, and is harmless. To
 check the whole file is valid JSON instead:
@@ -95,7 +98,8 @@ URLs; they are not, in 4.3.0.)
 
 1. Join the container to each mine's frontend network:
    `cp docker-compose.override.yml.example docker-compose.override.yml`, list
-   your mines' networks, `docker-compose up -d`.
+   your mines' networks, `docker-compose up -d`. To undo: delete
+   `docker-compose.override.yml` and run `docker-compose up -d` again.
 2. In each mine's front end (docker_template's `nginx/nginx.conf.template`,
    beside `/jbrowse/`). docker_template includes this location from commit
    03b5411 ("nginx: optional /jbrowse2/ route"): with a mine directory

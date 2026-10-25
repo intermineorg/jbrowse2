@@ -41,16 +41,36 @@ On the server, tools are npm packages under `data/tools/@intermine/<name>/`
 in each mine's deployment, bind-mounted into the bluegenes container. **(you)**
 
 ```sh
-cd ~/intermine/docker/humanmine/data/tools/@intermine
-cp -r <this repo>/bluegenes-tool bluegenes-jbrowse2-tool     # dist/ is committed
-rm -rf bluegenes-jbrowse2-tool/node_modules bluegenes-jbrowse2-tool/test
+cd ~/intermine/docker/humanmine/data/tools
+cp tools.edn tools.edn.bak
+cp -r ~/intermine/docker/jbrowse2/bluegenes-tool @intermine/bluegenes-jbrowse2-tool   # dist/ is committed
+rm -rf @intermine/bluegenes-jbrowse2-tool/{node_modules,test}
 ```
 
-then add it to the tool list in `data/tools/tools.edn` beside
-`bluegenes-jbrowse-tool` (`"@intermine/bluegenes-jbrowse2-tool" "0.1.0"` in
-the `:tools` map) and restart BlueGenes (`docker-compose restart bluegenes`
-in the mine's directory). `https://www.<mine>.org/api/tools/all` should then
-list it, with your `jbrowse2Url`.
+In `@intermine/bluegenes-jbrowse2-tool/config.json` set `jbrowse2Url` to
+where JBrowse 2 is published for this mine (e.g.
+`https://www.humanmine.org/jbrowse2/`; the default is
+`https://jbrowse2.intermine.org/`). In `tools.edn` add the line
+
+```
+         "@intermine/bluegenes-jbrowse2-tool" "0.1.0"
+```
+
+inside the `:tools` map, beside `"@intermine/bluegenes-jbrowse-tool" "1.0.1"`.
+
+**Every entry in `tools.edn` is a name *and* a version string.** The
+file is one EDN map, so an entry without its version (or an unbalanced quote
+or brace) makes the whole file unreadable. BlueGenes then lists **no tools
+at all**, so every report page loses every tool panel, and it logs the
+misleading `Tool config ./tools/tools.edn is missing`; check with
+`docker logs <mine>_bluegenes 2>&1 | grep -i "tool config"`. A trailing
+newline is harmless.
+
+Then restart BlueGenes (`docker-compose restart bluegenes` in the mine's
+directory) and check that `https://www.<mine>.org/api/tools/all` lists every
+tool as before plus this one, with your `jbrowse2Url`. To undo:
+`mv tools.edn.bak tools.edn`, delete `@intermine/bluegenes-jbrowse2-tool`,
+restart BlueGenes.
 
 **Add it to the report page layout.** Installing a tool is not enough when
 the mine has a saved report page layout for `Gene` (HumanMine has one, read
