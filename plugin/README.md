@@ -59,3 +59,21 @@ Coordinates are used as the server returns them (interbase). Feature density
 for the "zoom in" prompt comes from `stats/region` with the class as `type`.
 Each feature carries `intermineId`, `intermineClass` and, where the mine has a
 page for it, `intermineUrl`.
+
+### InterMineSequenceAdapter
+
+Reference sequence for an assembly. One slot, `baseUrl` (as above). Ref names
+and lengths come from `<service>/config/<taxon>/seq/refSeqs.json`; sequence
+is fetched with `features/<ref>?reference=true` in slices of at most 100 kb,
+four at a time, clamped to the reference length.
+
+```json
+"sequence": {
+  "type": "ReferenceSequenceTrack",
+  "trackId": "humanmine-9606-sequence",
+  "adapter": {
+    "type": "InterMineSequenceAdapter",
+    "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606"
+  }
+}
+```

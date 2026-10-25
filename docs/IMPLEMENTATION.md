@@ -58,7 +58,7 @@ These settle PLAN.md section 6.
   `getRefNames`, `getRegions`-free `getFeatures`, `freeResources`,
   `getRegionStats` / `estimateRegionsStats` using `stats/region`. Exon
   nesting when `nestExons` is set. Tests.
-- [ ] **5. Sequence adapter** (`InterMineSequenceAdapter`) with chunking so
+- [x] **5. Sequence adapter** (`InterMineSequenceAdapter`) with chunking so
   requests stay bounded. Tests.
 - [ ] **6. Text-search adapter** (`InterMineTextSearchAdapter`), with the
   1-based to interbase fix. Tests.
