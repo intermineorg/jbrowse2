@@ -74,7 +74,7 @@ runs cross-origin against it today).
 |---|---|---|
 | Track list | `config/<taxon>/trackList.json` | JSON with `tracks` (101 for human: one `CanvasFeatures` track per feature class, each `storeClass: JBrowse/Store/SeqFeature/REST`, `baseUrl: <base>/<taxon>`, `query: {type: <Class>}`; plus one `SequenceTrack` with `query: {reference: true}`), `names: {type: REST, url: <base>/names/<taxon>}`, `dataset_id`. |
 | Reference sequences | `config/<taxon>/seq/refSeqs.json` | `[{"name":"1","start":0,"end":248956422}, ...]`. Note the `seq/` segment; `config/<taxon>/refSeqs.json` is 404. |
-| Features in a region | `<taxon>/features/<ref>?start=S&end=E&type=<Class>` | `{"features":[{"symbol","name","start","end","strand":"-1","type":"gene","uniqueID":"5080","subfeatures":[]}, ...], "wasSuccessful":true}`. `uniqueID` is the InterMine object id for genes (`<mine root>/report/Gene/<id>` is the report page) and the primary identifier for transcripts. `strand` is a string. `subfeatures` was **always empty** in every probe (genes, mRNAs), so gene models come back as flat boxes; to draw exon structure the adapter would have to fetch `type=Exon` (and/or `type=CDS`, `UTR`) for the same region and nest them under their transcripts itself. Check whether exons carry a parent reference; if not, nesting needs a query to the main InterMine API. |
+| Features in a region | `<taxon>/features/<ref>?start=S&end=E&type=<Class>` | `{"features":[{"symbol","name","start","end","strand":"-1","type":"gene","uniqueID":"5080","subfeatures":[]}, ...], "wasSuccessful":true}`. `uniqueID` is the feature's InterMine `primaryIdentifier` (NCBI Gene id `5080` for PAX6, RefSeq accession for transcripts), **not** the object id used in report-page URLs (`<mine root>/report/Gene/1234788`). To link a feature to its report page the adapter must resolve the identifier, e.g. a lookup through `<mine root>/service/search?q=<id>` or a path query; the `names` endpoint's `objectName` is the same primary identifier. `strand` is a string. `subfeatures` was **always empty** in every probe (genes, mRNAs), so gene models come back as flat boxes; to draw exon structure the adapter would have to fetch `type=Exon` (and/or `type=CDS`, `UTR`) for the same region and nest them under their transcripts itself. Check whether exons carry a parent reference; if not, nesting needs a query to the main InterMine API. |
 | Reference sequence | `<taxon>/features/<ref>?start=S&end=E&reference=true` | `{"features":[{"start":S,"end":E,"seq":"CCTG..."}]}`. |
 | Global stats | `<taxon>/stats/global` | `{"featureDensity":0.0209,"featureCount":64489555}`. |
 | Region stats | `<taxon>/stats/region/<ref>?start=S&end=E` | `{"featureDensity":0.0395,"featureCount":395}`. The `type` parameter should also be honoured; verify. |
@@ -194,6 +194,9 @@ the plan.
 
 ## 6. Open questions to settle early
 
+- Report-page links: `uniqueID` is the primary identifier, so a cheap way
+  to turn it into the object id (or a BlueGenes URL that accepts primary
+  identifiers) is needed for feature-click links.
 - Exon/CDS structure: is nesting feasible from the REST endpoint alone?
   (See the `subfeatures` note above.) If not, decide between flat gene
   boxes for v1 or a second query to `<mine root>/service/query/results`.
