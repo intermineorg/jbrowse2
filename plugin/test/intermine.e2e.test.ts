@@ -14,6 +14,7 @@ type Report = {
   'models-human'?: Drawn
   'models-fly'?: Drawn
   'models-detail'?: Drawn
+  'models-strands'?: Drawn
   sequence?: { sequenceText: boolean; errors: string[]; failure?: string }
   tool?: { drawnCanvases: number; location: string; errors: string[]; failure?: string }
   search?: { location: string; errors: string[]; failure?: string }
@@ -39,8 +40,8 @@ describe('JBrowse 2 with the InterMine plugin (live HumanMine and FlyMine)', () 
     expect(report.features!.errors).toEqual([])
   })
 
-  // screenshots models-*.png show the caret introns, CDS/UTR and 3' arrowheads
-  for (const name of ['models-human', 'models-fly', 'models-detail'] as const) {
+  // screenshots models-*.png show the caret introns (down on the minus strand), CDS/UTR and 3' arrowheads
+  for (const name of ['models-human', 'models-fly', 'models-detail', 'models-strands'] as const) {
     it(`draws gene models with no page errors (${name})`, ctx => {
       if (report.skipped) return ctx.skip()
       const r = report[name]

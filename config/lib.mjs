@@ -13,6 +13,13 @@ export const DEFAULT_EXCLUDE = ['SequenceFeature']
  */
 export const DEFAULT_GENE_MODELS = ['Gene']
 export const DEFAULT_NEST_EXONS = ['Transcript', 'MRNA']
+/**
+ * Intron carets on gene model tracks: `strand` (up on the plus strand, down
+ * on the minus strand) or `up` (all up). Written into each model track's
+ * adapter so it can be flipped in config.json without regenerating.
+ */
+export const INTRON_CARETS = ['strand', 'up']
+export const DEFAULT_INTRON_CARETS = 'strand'
 /** Initial height (px) of gene model and transcript tracks. */
 export const MODEL_TRACK_HEIGHT = 300
 
@@ -40,14 +47,14 @@ export async function fetchTrackList(mineRoot, taxon, fetchImpl = fetch) {
   return res.json()
 }
 
-function featureAdapter(baseUrl, intermineClass, { geneModels, nestExons }) {
+function featureAdapter(baseUrl, intermineClass, { geneModels, nestExons, intronCarets }) {
   const level = geneModels.includes(intermineClass)
     ? 'gene'
     : nestExons.includes(intermineClass)
       ? 'transcript'
       : undefined
   return level
-    ? { type: 'InterMineGeneModelAdapter', baseUrl, intermineClass, level }
+    ? { type: 'InterMineGeneModelAdapter', baseUrl, intermineClass, level, intronCarets }
     : { type: 'InterMineFeatureAdapter', baseUrl, intermineClass }
 }
 
@@ -61,7 +68,11 @@ export function buildAssemblyConfig(trackList, mineRoot, taxon, opts = {}) {
     include,
     geneModels = DEFAULT_GENE_MODELS,
     nestExons = DEFAULT_NEST_EXONS,
+    intronCarets = DEFAULT_INTRON_CARETS,
   } = opts
+  if (!INTRON_CARETS.includes(intronCarets)) {
+    throw new Error(`intronCarets must be one of ${INTRON_CARETS.join(', ')}: ${intronCarets}`)
+  }
   const assembly = assemblyName(mineRoot, taxon, trackList.dataset_id)
   const rest = (trackList.tracks ?? []).filter(t => /REST$/.test(t.storeClass ?? ''))
 
@@ -77,7 +88,7 @@ export function buildAssemblyConfig(trackList, mineRoot, taxon, opts = {}) {
     if (include ? !include.includes(cls) : exclude.includes(cls)) continue
     seen.add(cls)
     const trackId = `${assembly}-${cls}`
-    const adapter = featureAdapter(trim(t.baseUrl || baseUrl), cls, { geneModels, nestExons })
+    const adapter = featureAdapter(trim(t.baseUrl || baseUrl), cls, { geneModels, nestExons, intronCarets })
     tracks.push({
       type: 'FeatureTrack',
       trackId,

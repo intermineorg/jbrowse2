@@ -36,7 +36,8 @@ live HumanMine and FlyMine. It asserts that:
 - the Gene and Transcript tracks draw canvases with no page or console
   errors;
 - gene models draw for PAX6 (HumanMine) and RapGAP1 (FlyMine), including a
-  close-up with CDS, UTRs and caret introns (`models-*.png`);
+  close-up with CDS, UTRs and caret introns, and ELP4 (plus strand) beside
+  PAX6 (minus) to show the caret directions (`models-*.png`);
 - the reference sequence shows at base-pair zoom;
 - typing `PAX6` in the location box navigates to the gene;
 - the URL the BlueGenes tool builds opens the right view.
@@ -70,6 +71,7 @@ Features of one InterMine class. Config slots:
 | `mineRoot` | derived from `baseUrl` | used for the `intermineUrl` link on each feature |
 | `nestExons` | `false` | for transcript tracks: also fetch `exonType` features and nest them as subfeatures, matched by the transcript id embedded in HumanMine exon ids (`exon-<transcript>-<n>`). Works for HumanMine only; FlyMine exon ids are `<gene>:<n>`. Superseded by `InterMineGeneModelAdapter`, which the generator now uses |
 | `exonType` | `Exon` | class used for exons |
+| `intronCarets` | `strand` | features with exon structure: `strand` draws intron carets pointing up on the plus strand and down on the minus strand; `up` points them all up (see [Caret intron glyph](#caret-intron-glyph)) |
 
 ```json
 {
@@ -134,7 +136,15 @@ keep JBrowse's own glyphs). It draws the layout JBrowse has already computed,
 so packing, labels, clicks and mouse-overs are unchanged, but each intron is a
 caret ("hat") from exon to exon instead of a straight line, and an arrowhead
 marks the 3' end of each transcript, pointing in the direction of
-transcription. Colours come from the track's renderer settings (`color1` for
+transcription.
+
+Carets point up on the plus strand and down on the minus strand. To point
+them all up, the usual convention, set `"intronCarets": "up"` in the track's
+adapter (or regenerate the config with `--intron-carets up`). It is an
+adapter slot because the glyph runs in JBrowse's render worker, which sees
+only the track's adapter and renderer config; the adapter attaches the choice
+to each feature as a hidden (non-enumerable) property, so it does not appear
+in the feature panel. Colours come from the track's renderer settings (`color1` for
 exons/CDS, `color3` for UTRs, `color2` for introns and arrows).
 
 ### InterMineSequenceAdapter

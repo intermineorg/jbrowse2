@@ -2,7 +2,7 @@ import { readConfObject } from '@jbrowse/core/configuration'
 import GlyphType from '@jbrowse/core/pluggableElementTypes/GlyphType'
 import { stripAlpha } from '@jbrowse/core/util'
 
-import { drawModel, isUTR } from './drawModel'
+import { caretMode, drawModel, INTRON_CARETS, isUTR } from './drawModel'
 
 import type { PartLayout } from './drawModel'
 import type PluginManager from '@jbrowse/core/PluginManager'
@@ -25,7 +25,7 @@ export default function register(pluginManager: PluginManager) {
         displayName: 'Transcript with caret introns',
         match: matchesInterMineModel,
         priority: 10,
-        draw({ ctx, featureLayout, config, theme, reversed, canvasWidth }) {
+        draw({ ctx, feature, featureLayout, config, theme, reversed, canvasWidth }) {
           const read = (slot: string, part: PartLayout) =>
             readConfObject(config, slot, { feature: part.feature }) as string
           drawModel(
@@ -40,7 +40,7 @@ export default function register(pluginManager: PluginManager) {
                 return c === '#f0f' ? stripAlpha(theme.palette.text.secondary) : c
               },
             },
-            { reversed, canvasWidth },
+            { reversed, canvasWidth, carets: caretMode(feature.get(INTRON_CARETS)) },
           )
         },
       }),

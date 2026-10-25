@@ -56,7 +56,7 @@ test('human config: assembly, sequence adapter, plugin-ready tracks', () => {
     name: 'Gene',
     category: ['Features'],
     assemblyNames: ['humanmine-9606'],
-    adapter: { type: 'InterMineGeneModelAdapter', baseUrl: base, intermineClass: 'Gene', level: 'gene' },
+    adapter: { type: 'InterMineGeneModelAdapter', baseUrl: base, intermineClass: 'Gene', level: 'gene', intronCarets: 'strand' },
     displays: [{ type: 'LinearBasicDisplay', displayId: 'humanmine-9606-Gene-LinearBasicDisplay', height: MODEL_TRACK_HEIGHT }],
   })
   assert.deepEqual(c.tracks.find(t => t.trackId === 'humanmine-9606-Exon'), {
@@ -80,6 +80,11 @@ test('genes and transcript classes get gene models, others are flat', () => {
   }
   const flat = buildAssemblyConfig(human, HUMAN, '9606', { geneModels: [], nestExons: [] })
   assert.ok(flat.tracks.every(t => t.adapter.type === 'InterMineFeatureAdapter' && !t.displays))
+  const models = buildAssemblyConfig(human, HUMAN, '9606').tracks.filter(t => t.adapter.level)
+  assert.ok(models.every(t => t.adapter.intronCarets === 'strand'))
+  const up = buildAssemblyConfig(human, HUMAN, '9606', { intronCarets: 'up' }).tracks.filter(t => t.adapter.level)
+  assert.ok(up.every(t => t.adapter.intronCarets === 'up'))
+  assert.throws(() => buildAssemblyConfig(human, HUMAN, '9606', { intronCarets: 'down' }), /intronCarets/)
   const onlyGenes = buildAssemblyConfig(human, HUMAN, '9606', { nestExons: [] })
   assert.deepEqual(onlyGenes.tracks.filter(t => t.adapter.level).map(t => t.adapter.intermineClass), ['Gene'])
 })
@@ -145,6 +150,8 @@ test('cli parsing', () => {
   assert.deepEqual(c.datasets, [{ mineRoot: HUMAN, taxon: '9606' }, { mineRoot: FLY, taxon: '7227' }])
   assert.equal(c.out, 'x.json')
   assert.deepEqual(c.opts, { exclude: ['A', 'B'], nestExons: [], geneModels: ['Gene', 'Pseudogene'] })
+  assert.deepEqual(parseCli([HUMAN, '9606', '--intron-carets', 'up']).opts, { intronCarets: 'up' })
+  assert.throws(() => parseCli([HUMAN, '9606', '--intron-carets', 'down']), /intron-carets/)
   assert.throws(() => parseCli([HUMAN]), /pairs/)
   assert.throws(() => parseCli(['humanmine', '9606']), /http/)
   assert.throws(() => parseCli([HUMAN, 'human']), /taxon/)

@@ -5,7 +5,15 @@ import { writeFileSync } from 'node:fs'
 import { parseArgs } from 'node:util'
 import { fileURLToPath } from 'node:url'
 
-import { DEFAULT_EXCLUDE, DEFAULT_GENE_MODELS, DEFAULT_NEST_EXONS, DEFAULT_PLUGIN_URL, generateConfig } from './lib.mjs'
+import {
+  DEFAULT_EXCLUDE,
+  DEFAULT_GENE_MODELS,
+  DEFAULT_INTRON_CARETS,
+  DEFAULT_NEST_EXONS,
+  DEFAULT_PLUGIN_URL,
+  generateConfig,
+  INTRON_CARETS,
+} from './lib.mjs'
 
 const HELP = `Usage: generate.mjs <mineRoot> <taxon> [<mineRoot> <taxon> ...] [options]
 
@@ -22,6 +30,9 @@ Options:
                           (default ${DEFAULT_GENE_MODELS.join(',')})
       --nest-exons <A,B>  classes drawn as transcripts with exons and CDS
                           (default ${DEFAULT_NEST_EXONS.join(',')})
+      --intron-carets <m> ${INTRON_CARETS.join('|')}: 'strand' points intron carets down on
+                          the minus strand, 'up' points them all up
+                          (default ${DEFAULT_INTRON_CARETS})
   -h, --help
 `
 
@@ -36,6 +47,7 @@ export function parseCli(argv) {
       include: { type: 'string' },
       'gene-models': { type: 'string' },
       'nest-exons': { type: 'string' },
+      'intron-carets': { type: 'string' },
       help: { type: 'boolean', short: 'h' },
     },
   })
@@ -50,6 +62,10 @@ export function parseCli(argv) {
     if (!/^\d+$/.test(taxon)) throw new Error(`Taxon must be an NCBI taxon id: ${taxon}`)
     datasets.push({ mineRoot, taxon })
   }
+  const carets = values['intron-carets']
+  if (carets !== undefined && !INTRON_CARETS.includes(carets)) {
+    throw new Error(`--intron-carets must be one of ${INTRON_CARETS.join(', ')}: ${carets}`)
+  }
   const list = s => (s === undefined ? undefined : s.split(',').map(x => x.trim()).filter(Boolean))
   return {
     datasets,
@@ -60,6 +76,7 @@ export function parseCli(argv) {
       ...(values.include !== undefined ? { include: list(values.include) } : {}),
       ...(values['gene-models'] !== undefined ? { geneModels: list(values['gene-models']) } : {}),
       ...(values['nest-exons'] !== undefined ? { nestExons: list(values['nest-exons']) } : {}),
+      ...(carets !== undefined ? { intronCarets: carets } : {}),
     },
   }
 }

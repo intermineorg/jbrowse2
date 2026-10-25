@@ -138,6 +138,16 @@ JBrowse 1 or 2 configuration of the REST store alone could draw gene models.
   building and model assembly against recorded HumanMine and FlyMine
   responses, the drawing code with a recording canvas, live tests on both
   mines, and browser scenarios with screenshots (`models-*.png`).
+- [x] **14. Downward carets on the minus strand, switchable.** New adapter
+  slot `intronCarets`: `strand` (default) points carets down on the minus
+  strand and up on the plus strand; `up` points them all up. The glyph runs
+  in JBrowse's render worker, which sees only the track's adapter and
+  renderer config, and the renderer's config schema cannot take new slots,
+  so the adapter attaches the choice to each feature as a non-enumerable
+  property: the glyph can read it, but it is not serialized into the feature
+  panel. The generator writes `intronCarets` on every gene-model track and
+  takes `--intron-carets`. Browser scenario `models-strands` shows ELP4
+  (plus) beside PAX6 (minus).
 
 ### Wrap-up
 

@@ -90,6 +90,8 @@ const shot = (page, name) => page.screenshot({ path: `${outDir}/${name}.png` })
       'models-fly': 'assembly=flymine-7227&loc=2L:7,495,000..7,582,000&tracks=flymine-7227-Gene,flymine-7227-MRNA',
       // close-up: CDS/UTR boundaries, short introns, 3' arrowheads (RapGAP1 is on the minus strand)
       'models-detail': 'assembly=flymine-7227&loc=2L:7,497,600..7,501,800&tracks=flymine-7227-Gene',
+      // both strands: the 3' end of ELP4 (plus, carets up) beside PAX6 (minus, carets down)
+      'models-strands': `assembly=${ASSEMBLY}&loc=11:31,740,000..31,800,000&tracks=${ASSEMBLY}-Gene`,
     }
     for (const [name, query] of Object.entries(models)) {
       await scenario(name, async () => {

@@ -1,7 +1,8 @@
 /**
  * Draws a transcript, or a gene's transcripts, from the layout JBrowse has
  * already computed: exon/CDS boxes (UTRs thinner), introns as carets ("hats")
- * between them, and an arrowhead at the 3' end for the strand.
+ * between them, and an arrowhead at the 3' end for the strand. Carets point
+ * up, or down on minus-strand transcripts when `carets` is `strand`.
  *
  * Kept free of JBrowse imports so it can be tested with a recording context.
  */
@@ -22,6 +23,27 @@ export interface ModelStyle {
   outline(part: PartLayout): string | undefined
   /** Intron and arrow colour for a transcript. */
   stroke(row: PartLayout): string
+}
+
+/**
+ * `strand`: carets point up on the plus strand and down on the minus strand.
+ * `up`: all carets point up, as in most browsers.
+ */
+export type CaretMode = 'strand' | 'up'
+/**
+ * Feature property, set by the adapters from their `intronCarets` slot, that
+ * carries the caret direction to the glyph. Renderers run in a web worker
+ * with only the track's adapter and renderer config, so the adapter is where
+ * a track can choose it.
+ */
+export const INTRON_CARETS = 'intronCarets'
+export const DEFAULT_CARET_MODE: CaretMode = 'strand'
+export const caretMode = (v: unknown): CaretMode => (v === 'up' || v === 'strand' ? v : DEFAULT_CARET_MODE)
+
+export interface DrawOptions {
+  reversed: boolean
+  canvasWidth: number
+  carets?: CaretMode
 }
 
 export const UTR_HEIGHT_FRACTION = 0.65
@@ -107,7 +129,7 @@ export function drawRow(
   ctx: CanvasRenderingContext2D,
   row: PartLayout,
   style: ModelStyle,
-  { reversed, canvasWidth }: { reversed: boolean; canvasWidth: number },
+  { reversed, canvasWidth, carets = DEFAULT_CARET_MODE }: DrawOptions,
 ) {
   if (offScreen(row.x - ARROW_LENGTH, row.width + 2 * ARROW_LENGTH, canvasWidth)) {
     return
@@ -120,11 +142,13 @@ export function drawRow(
   } else {
     ctx.strokeStyle = stroke
     ctx.lineWidth = 1
-    // carets rise from the middle of the exons to the top of the row
+    // carets run from the middle of the exons to the top of the row, or to
+    // its bottom for the minus strand
     const baseY = row.y + row.height / 2
+    const apexY = carets === 'strand' && strand < 0 ? row.y + row.height : row.y
     for (const g of intronGaps(row.children)) {
       if (!offScreen(g.left, g.right - g.left, canvasWidth)) {
-        drawCaret(ctx, g.left, g.right, baseY, row.y)
+        drawCaret(ctx, g.left, g.right, baseY, apexY)
       }
     }
     for (const part of row.children) {
@@ -140,7 +164,7 @@ export function drawModel(
   ctx: CanvasRenderingContext2D,
   layout: PartLayout,
   style: ModelStyle,
-  opts: { reversed: boolean; canvasWidth: number },
+  opts: DrawOptions,
 ) {
   for (const row of rowsOf(layout)) {
     drawRow(ctx, row, style, opts)

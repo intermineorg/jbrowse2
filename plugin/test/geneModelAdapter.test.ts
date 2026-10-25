@@ -67,6 +67,17 @@ describe('InterMineGeneModelAdapter', () => {
     await expect(collect(make())).rejects.toThrow('bad query')
   })
 
+  it('passes the caret direction to the glyph without showing it in the feature panel', async () => {
+    mockMine()
+    const [byStrand] = await collect(make())
+    expect(byStrand!.get('intronCarets')).toBe('strand')
+    expect(byStrand!.toJSON()).not.toHaveProperty('intronCarets')
+    const [up] = await collect(make({ intronCarets: 'up' }))
+    expect(up!.get('intronCarets')).toBe('up')
+    const [bad] = await collect(make({ intronCarets: 'sideways' }))
+    expect(bad!.get('intronCarets')).toBe('strand')
+  })
+
   it('uses mineRoot from config for the query service', async () => {
     const requested = mockMine()
     await collect(make({ mineRoot: 'https://www.humanmine.org/humanmine/' })).catch(() => {})

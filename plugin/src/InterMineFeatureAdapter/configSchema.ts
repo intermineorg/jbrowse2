@@ -35,6 +35,12 @@ export default ConfigurationSchema(
       description: 'InterMine class used for exons when nestExons is on',
       defaultValue: 'Exon',
     },
+    intronCarets: {
+      type: 'string',
+      description:
+        'Introns of features with exon structure: `strand` draws carets pointing up on the plus strand and down on the minus strand; `up` points them all up',
+      defaultValue: 'strand',
+    },
   },
   { explicitlyTyped: true },
 )

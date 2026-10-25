@@ -10,8 +10,10 @@ import {
   nestExons,
   toFeatureData,
 } from '../intermine/client'
+import { caretMode, DEFAULT_CARET_MODE, INTRON_CARETS } from '../IntronHatGlyph/drawModel'
 
 import type { InterMineFeatureData } from '../intermine/types'
+import type { CaretMode } from '../IntronHatGlyph/drawModel'
 import type { BaseOptions } from '@jbrowse/core/data_adapters/BaseAdapter'
 import type { Feature } from '@jbrowse/core/util/simpleFeature'
 import type { AugmentedRegion as Region } from '@jbrowse/core/util/types'
@@ -23,12 +25,16 @@ import type { AugmentedRegion as Region } from '@jbrowse/core/util/types'
  */
 export const MAX_EXON_SPAN = 5_000_000
 
-function toSimpleFeature(f: InterMineFeatureData): Feature {
+/**
+ * The caret direction rides on the feature for the glyph, but is not
+ * enumerable, so it is left out when the feature is serialized for the
+ * feature panel.
+ */
+export function toSimpleFeature(f: InterMineFeatureData, carets: CaretMode = DEFAULT_CARET_MODE): Feature {
   const { uniqueId, subfeatures, ...rest } = f
-  return new SimpleFeature({
-    id: uniqueId,
-    data: { ...rest, uniqueId, ...(subfeatures ? { subfeatures } : {}) },
-  })
+  const data = { ...rest, uniqueId, ...(subfeatures ? { subfeatures } : {}) }
+  Object.defineProperty(data, INTRON_CARETS, { value: carets, enumerable: false })
+  return new SimpleFeature({ id: uniqueId, data })
 }
 
 export default class InterMineFeatureAdapter extends BaseFeatureDataAdapter {
@@ -62,8 +68,9 @@ export default class InterMineFeatureAdapter extends BaseFeatureDataAdapter {
     return ObservableCreate<Feature>(async observer => {
       try {
         const features = await this.fetchRegion(region, opts)
+        const carets = caretMode(this.getConf('intronCarets'))
         for (const f of features) {
-          observer.next(toSimpleFeature(f))
+          observer.next(toSimpleFeature(f, carets))
         }
         observer.complete()
       } catch (e) {

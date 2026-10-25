@@ -50,6 +50,7 @@ describe('InterMinePlugin', () => {
     expect(readConfObject(conf, 'intermineClass')).toBe('MRNA')
     expect(readConfObject(conf, 'level')).toBe('transcript')
     expect(readConfObject(conf, 'mineRoot')).toBe('')
+    expect(readConfObject(conf, 'intronCarets')).toBe('strand')
   })
 
   it('text search config carries the slots JBrowse needs to select the adapter', () => {

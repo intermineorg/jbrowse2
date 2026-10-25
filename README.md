@@ -9,8 +9,8 @@ plugin teaches JBrowse 2 to read it.
 
 **Status: implemented and tested against live HumanMine; not yet deployed.**
 Genes drawn with all their transcripts (exons as boxes, CDS thick and UTRs
-thin where the mine has CDS data, introns as carets, an arrowhead for the
-strand), every other feature class, the reference sequence and name search all
+thin where the mine has CDS data, introns as carets that point down on the
+minus strand (switchable to all up), an arrowhead for the strand), every other feature class, the reference sequence and name search all
 work in a real jbrowse-web in headless Chromium, against HumanMine and
 FlyMine. What remains needs the maintainer or the front-end admins: the
 `jbrowse2.intermine.org` virtual host, installing the BlueGenes tool, and

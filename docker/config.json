@@ -481,7 +481,8 @@
         "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
         "intermineClass": "Gene",
-        "level": "gene"
+        "level": "gene",
+        "intronCarets": "strand"
       },
       "displays": [
         {
@@ -665,7 +666,8 @@
         "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
         "intermineClass": "MRNA",
-        "level": "transcript"
+        "level": "transcript",
+        "intronCarets": "strand"
       },
       "displays": [
         {
@@ -1521,7 +1523,8 @@
         "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
         "intermineClass": "Transcript",
-        "level": "transcript"
+        "level": "transcript",
+        "intronCarets": "strand"
       },
       "displays": [
         {
@@ -1945,7 +1948,8 @@
         "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
         "intermineClass": "Gene",
-        "level": "gene"
+        "level": "gene",
+        "intronCarets": "strand"
       },
       "displays": [
         {
@@ -2065,7 +2069,8 @@
         "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
         "intermineClass": "MRNA",
-        "level": "transcript"
+        "level": "transcript",
+        "intronCarets": "strand"
       },
       "displays": [
         {
@@ -2441,7 +2446,8 @@
         "type": "InterMineGeneModelAdapter",
         "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
         "intermineClass": "Transcript",
-        "level": "transcript"
+        "level": "transcript",
+        "intronCarets": "strand"
       },
       "displays": [
         {

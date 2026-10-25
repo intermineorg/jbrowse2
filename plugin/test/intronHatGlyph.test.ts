@@ -6,6 +6,7 @@ import InterMinePlugin from '../src'
 import { matchesInterMineModel } from '../src/IntronHatGlyph'
 import {
   ARROW_LENGTH,
+  caretMode,
   drawModel,
   intronGaps,
   MIN_CARET_WIDTH,
@@ -63,6 +64,22 @@ describe('caret introns', () => {
     expect(s).toContain('begin M200,15 L240,10 L280,15 S')
     // exons drawn after the introns, so carets never cover them
     expect(s.indexOf('R100,10,20,10')).toBeGreaterThan(s.indexOf('L160,15'))
+  })
+
+  it('minus-strand carets point down by default, or up when carets is up', () => {
+    const minus = row(-1, [part('exon', 100, 20), part('exon', 160, 40)])
+    const down = recorder()
+    drawModel(down.ctx, minus, style, opts)
+    // apex at the bottom of the row (y=20)
+    expect(down.calls.join(' ')).toContain('begin M120,15 L140,20 L160,15 S')
+    const up = recorder()
+    drawModel(up.ctx, minus, style, { ...opts, carets: 'up' })
+    expect(up.calls.join(' ')).toContain('begin M120,15 L140,10 L160,15 S')
+    // plus strand always up; strand, not screen direction, decides
+    const plus = recorder()
+    drawModel(plus.ctx, row(1, [part('exon', 100, 20), part('exon', 160, 40)]), style, { ...opts, reversed: true })
+    expect(plus.calls.join(' ')).toContain('begin M120,15 L140,10 L160,15 S')
+    expect([caretMode('up'), caretMode('strand'), caretMode(undefined), caretMode('x')]).toEqual(['up', 'strand', 'strand', 'strand'])
   })
 
   it('narrow introns are a straight join, not a caret', () => {
