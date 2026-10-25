@@ -38,7 +38,7 @@ export default ConfigurationSchema(
     intronCarets: {
       type: 'string',
       description:
-        'Introns of features with exon structure: `strand` draws carets pointing up on the plus strand and down on the minus strand; `up` points them all up',
+        'Introns of features with exon structure: `strand` draws carets pointing up on the plus strand and down on the minus strand; `up` points them all up. A matter of taste: both cost the same to draw',
       defaultValue: 'strand',
     },
   },

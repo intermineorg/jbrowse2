@@ -144,7 +144,43 @@ adapter (or regenerate the config with `--intron-carets up`). It is an
 adapter slot because the glyph runs in JBrowse's render worker, which sees
 only the track's adapter and renderer config; the adapter attaches the choice
 to each feature as a hidden (non-enumerable) property, so it does not appear
-in the feature panel. Colours come from the track's renderer settings (`color1` for
+in the feature panel.
+
+**Cost of the two caret directions: none measurable.** Up and down carets are
+the same three-point path with a different apex height, so they need the same
+canvas calls; choose between them on looks alone. Measured in headless
+Chromium (software rendering, the zenika/alpine-chrome image the browser
+tests use), calling the glyph's drawing code directly and drawing a PAX6-sized gene (53
+transcripts of 14 exons, 12 px rows, 1400 px canvas) 500 times per run,
+median of 5 runs after warm-up:
+
+| Gene strand, `intronCarets` | Carets | ms per draw (median; min-max) |
+|---|---|---|
+| minus, `up` | up | 0.800 (0.795-0.810) |
+| minus, `strand` | down | 0.807 (0.799-0.833) |
+| plus, `strand` | up | 0.805 (0.803-0.840) |
+
+The differences are within run-to-run noise. Drawing is in any case a small
+part of what the user waits for: fetching the models takes hundreds of
+milliseconds (next section).
+
+**Cost of gene models compared with flat boxes.** A gene-model track sends
+two PathQueries per region to the mine's query service where a flat track
+sends one REST request. Measured against the live mines (second request of
+two, so the mine's own caches are warm; the first is up to twice as slow):
+
+| Region | Flat `Gene` track (REST) | Gene models (two queries) |
+|---|---|---|
+| HumanMine 11:31.78-31.83 Mb (PAX6) | 0.27 s, 4 genes | 0.29 s, 672 rows |
+| HumanMine 11:31-32 Mb | 0.27 s, 8 genes | 0.34 s, 1481 rows |
+| HumanMine 11:64-65 Mb (gene-dense) | 0.27 s, 53 genes | 1.26 s (2.16 s cold), 4321 rows |
+| FlyMine 2L:7.495-7.582 Mb | 0.28 s, 6 genes | 0.28 s, 161+17 rows |
+| FlyMine 2L:7-8 Mb | 0.34 s, 135 genes | 0.31 s, 1672+270 rows |
+
+So the extra cost is negligible in most views and about 1 s in gene-dense
+human regions, where each gene has many transcripts (one row per exon per
+transcript). JBrowse caches fetched regions, so panning back is free, and
+beyond the density limit it shows "zoom in" without fetching. Colours come from the track's renderer settings (`color1` for
 exons/CDS, `color3` for UTRs, `color2` for introns and arrows).
 
 ### InterMineSequenceAdapter

@@ -24,7 +24,7 @@ node generate.mjs https://www.humanmine.org/humanmine 9606 \
 | `--include A,B` | | only these classes (overrides `--exclude`) |
 | `--gene-models A,B` | `Gene` | classes drawn as genes with their transcripts, exons and CDS (`InterMineGeneModelAdapter`, `level: gene`); `''` for none |
 | `--nest-exons A,B` | `Transcript,MRNA` | classes drawn as transcripts with exons and CDS (`InterMineGeneModelAdapter`, `level: transcript`); `''` for none |
-| `--intron-carets strand\|up` | `strand` | written as `intronCarets` on every gene-model track: `strand` points intron carets down on the minus strand, `up` points them all up. To change an existing config without regenerating, edit that value in `config.json` |
+| `--intron-carets strand\|up` | `strand` | written as `intronCarets` on every gene-model track: `strand` points intron carets down on the minus strand, `up` points them all up. Both draw at the same speed (see `plugin/README.md`). To change an existing config without regenerating, edit that value in `config.json` |
 
 ## What it produces
 

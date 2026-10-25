@@ -147,7 +147,11 @@ JBrowse 1 or 2 configuration of the REST store alone could draw gene models.
   property: the glyph can read it, but it is not serialized into the feature
   panel. The generator writes `intronCarets` on every gene-model track and
   takes `--intron-carets`. Browser scenario `models-strands` shows ELP4
-  (plus) beside PAX6 (minus).
+  (plus) beside PAX6 (minus). Profiled in headless Chromium: both directions
+  draw a 53-transcript gene in ~0.80 ms, differences within noise, so the
+  choice is purely visual. The cost that matters is the query service
+  (0.3 s for most views, ~1.3 s in gene-dense human regions against 0.27 s
+  for flat boxes); figures in `plugin/README.md`.
 
 ### Wrap-up
 
