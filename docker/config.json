@@ -1,0 +1,2479 @@
+{
+  "configuration": {
+    "disableAnalytics": true
+  },
+  "plugins": [
+    {
+      "name": "InterMine",
+      "url": "jbrowse-plugin-intermine.umd.production.min.js"
+    }
+  ],
+  "assemblies": [
+    {
+      "name": "humanmine-9606",
+      "displayName": "Humanmine-9606",
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "humanmine-9606-sequence",
+        "adapter": {
+          "type": "InterMineSequenceAdapter",
+          "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606"
+        }
+      }
+    },
+    {
+      "name": "flymine-7227",
+      "displayName": "FlyMine-7227",
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "flymine-7227-sequence",
+        "adapter": {
+          "type": "InterMineSequenceAdapter",
+          "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227"
+        }
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-AntisenseRNA",
+      "name": "Antisense RNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "AntisenseRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-BindingSite",
+      "name": "Binding Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "BindingSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-BiologicalRegion",
+      "name": "Biological Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "BiologicalRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-CAATSignal",
+      "name": "CAAT Signal",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "CAATSignal"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-CAGECluster",
+      "name": "CAGE Cluster",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "CAGECluster"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-CDNAClone",
+      "name": "cDNA Clone",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "CDNAClone"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-CDNAMatch",
+      "name": "cDNA Match",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "CDNAMatch"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-CDS",
+      "name": "CDS",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "CDS"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-CGeneSegment",
+      "name": "C Gene Segment",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "CGeneSegment"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-CRM",
+      "name": "CRM",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "CRM"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Centromere",
+      "name": "Centromere",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Centromere"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ChromosomalTranslocation",
+      "name": "Chromosomal Translocation",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ChromosomalTranslocation"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Chromosome",
+      "name": "Chromosome",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Chromosome"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ChromosomeBand",
+      "name": "Chromosome Band",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ChromosomeBand"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ChromosomeBreakpoint",
+      "name": "Chromosome Breakpoint",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ChromosomeBreakpoint"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ConservedRegion",
+      "name": "Conserved Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ConservedRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-DGeneSegment",
+      "name": "D Gene Segment",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "DGeneSegment"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-DLoop",
+      "name": "D Loop",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "DLoop"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-DNaseIHypersensitiveSite",
+      "name": "D Nase I Hypersensitive Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "DNaseIHypersensitiveSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-DirectRepeat",
+      "name": "Direct Repeat",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "DirectRepeat"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-DispersedRepeat",
+      "name": "Dispersed Repeat",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "DispersedRepeat"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-EST",
+      "name": "EST",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "EST"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Enhancer",
+      "name": "Enhancer",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Enhancer"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Exon",
+      "name": "Exon",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Exon"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-FivePrimeUTR",
+      "name": "Five Prime UTR",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "FivePrimeUTR"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ForwardPrimer",
+      "name": "Forward Primer",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ForwardPrimer"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-GCRichPromoterRegion",
+      "name": "GC Rich Promoter Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "GCRichPromoterRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Gene",
+      "name": "Gene",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Gene"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-GeneFlankingRegion",
+      "name": "Gene Flanking Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "GeneFlankingRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-GoldenPathFragment",
+      "name": "Golden Path Fragment",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "GoldenPathFragment"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-GuideRNA",
+      "name": "Guide RNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "GuideRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Insulator",
+      "name": "Insulator",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Insulator"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-IntergenicRegion",
+      "name": "Intergenic Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "IntergenicRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Intron",
+      "name": "Intron",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Intron"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-JGeneSegment",
+      "name": "J Gene Segment",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "JGeneSegment"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-LncRNA",
+      "name": "Lnc RNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "LncRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-LocusControlRegion",
+      "name": "Locus Control Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "LocusControlRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-LongTerminalRepeat",
+      "name": "Long Terminal Repeat",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "LongTerminalRepeat"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-MRNA",
+      "name": "mRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "MRNA",
+        "nestExons": true
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Match",
+      "name": "Match",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Match"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-MatrixAttachmentSite",
+      "name": "Matrix Attachment Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "MatrixAttachmentSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-MeioticRecombinationRegion",
+      "name": "Meiotic Recombination Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "MeioticRecombinationRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-MiRNA",
+      "name": "miRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "MiRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-MicroarrayOligo",
+      "name": "Microarray Oligo",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "MicroarrayOligo"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Microsatellite",
+      "name": "Microsatellite",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Microsatellite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Minisatellite",
+      "name": "Minisatellite",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Minisatellite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-MitoticRecombinationRegion",
+      "name": "Mitotic Recombination Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "MitoticRecombinationRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-MobileGeneticElement",
+      "name": "Mobile Genetic Element",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "MobileGeneticElement"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-NaturalTransposableElement",
+      "name": "Natural Transposable Element",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "NaturalTransposableElement"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-NcRNA",
+      "name": "ncRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "NcRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-NonAllelicHomologousRecombinationRegion",
+      "name": "Non Allelic Homologous Recombination Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "NonAllelicHomologousRecombinationRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-NucleotideCleavageSite",
+      "name": "Nucleotide Cleavage Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "NucleotideCleavageSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-NucleotideMotif",
+      "name": "Nucleotide Motif",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "NucleotideMotif"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Oligo",
+      "name": "Oligo",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Oligo"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-OriginOfReplication",
+      "name": "Origin Of Replication",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "OriginOfReplication"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-OverlappingESTSet",
+      "name": "Overlapping EST Set",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "OverlappingESTSet"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-PCRProduct",
+      "name": "PCR Product",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "PCRProduct"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-PointMutation",
+      "name": "Point Mutation",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "PointMutation"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-PrimaryTranscript",
+      "name": "Primary Transcript",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "PrimaryTranscript"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Primer",
+      "name": "Primer",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Primer"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ProbeSet",
+      "name": "Probe Set",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ProbeSet"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Promoter",
+      "name": "Promoter",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Promoter"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ProteinBindingSite",
+      "name": "Protein Binding Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ProteinBindingSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Pseudogene",
+      "name": "Pseudogene",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Pseudogene"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-RNaseMRPRNA",
+      "name": "RNase MRP RNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "RNaseMRPRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-RNasePRNA",
+      "name": "RNase P RNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "RNasePRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-RRNA",
+      "name": "rRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "RRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Region",
+      "name": "Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Region"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-RegulatoryRegion",
+      "name": "Regulatory Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "RegulatoryRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-RepeatInstabilityRegion",
+      "name": "Repeat Instability Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "RepeatInstabilityRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-RepeatRegion",
+      "name": "Repeat Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "RepeatRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ReplicationRegulatoryRegion",
+      "name": "Replication Regulatory Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ReplicationRegulatoryRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ReplicationStartSite",
+      "name": "Replication Start Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ReplicationStartSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ReversePrimer",
+      "name": "Reverse Primer",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ReversePrimer"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-SNP",
+      "name": "SNP",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "SNP"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ScRNA",
+      "name": "scRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ScRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-SequenceAlteration",
+      "name": "Sequence Alteration",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "SequenceAlteration"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-SequenceComparison",
+      "name": "Sequence Comparison",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "SequenceComparison"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-SequenceSecondaryStructure",
+      "name": "Sequence Secondary Structure",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "SequenceSecondaryStructure"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Silencer",
+      "name": "Silencer",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Silencer"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-SnRNA",
+      "name": "snRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "SnRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-SnoRNA",
+      "name": "snoRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "SnoRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-StemLoop",
+      "name": "Stem Loop",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "StemLoop"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Substitution",
+      "name": "Substitution",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Substitution"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-SyntenicRegion",
+      "name": "Syntenic Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "SyntenicRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-TATABox",
+      "name": "TATA Box",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "TATABox"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-TFBindingSite",
+      "name": "TF Binding Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "TFBindingSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-TRNA",
+      "name": "tRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "TRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-TandemRepeat",
+      "name": "Tandem Repeat",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "TandemRepeat"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-TelomeraseRNA",
+      "name": "Telomerase RNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "TelomeraseRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-ThreePrimeUTR",
+      "name": "Three Prime UTR",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "ThreePrimeUTR"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-Transcript",
+      "name": "Transcript",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "Transcript",
+        "nestExons": true
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-TranscriptionalCisRegulatoryRegion",
+      "name": "Transcriptional Cis Regulatory Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "TranscriptionalCisRegulatoryRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-TransposableElement",
+      "name": "Transposable Element",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "TransposableElement"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-TransposableElementInsertionSite",
+      "name": "Transposable Element Insertion Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "TransposableElementInsertionSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-UTR",
+      "name": "UTR",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "UTR"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-VGeneSegment",
+      "name": "V Gene Segment",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "VGeneSegment"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-VaultRNA",
+      "name": "Vault RNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "VaultRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "humanmine-9606-YRNA",
+      "name": "Y RNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "humanmine-9606"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+        "intermineClass": "YRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-Allele",
+      "name": "Allele",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "Allele"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-BindingSite",
+      "name": "Binding Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "BindingSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-CDNAClone",
+      "name": "cDNA Clone",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "CDNAClone"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-CDS",
+      "name": "CDS",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "CDS"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-CRM",
+      "name": "CRM",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "CRM"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ChromosomalDeletion",
+      "name": "Chromosomal Deletion",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ChromosomalDeletion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ChromosomalDuplication",
+      "name": "Chromosomal Duplication",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ChromosomalDuplication"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ChromosomalInversion",
+      "name": "Chromosomal Inversion",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ChromosomalInversion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ChromosomalTranslocation",
+      "name": "Chromosomal Translocation",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ChromosomalTranslocation"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ChromosomalTransposition",
+      "name": "Chromosomal Transposition",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ChromosomalTransposition"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-Chromosome",
+      "name": "Chromosome",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "Chromosome"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ChromosomeBand",
+      "name": "Chromosome Band",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ChromosomeBand"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ChromosomeStructureVariation",
+      "name": "Chromosome Structure Variation",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ChromosomeStructureVariation"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-EST",
+      "name": "EST",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "EST"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-Enhancer",
+      "name": "Enhancer",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "Enhancer"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-Exon",
+      "name": "Exon",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "Exon"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-FivePrimeUTR",
+      "name": "Five Prime UTR",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "FivePrimeUTR"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ForwardPrimer",
+      "name": "Forward Primer",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ForwardPrimer"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-Gene",
+      "name": "Gene",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "Gene"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-GeneFlankingRegion",
+      "name": "Gene Flanking Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "GeneFlankingRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-GoldenPath",
+      "name": "Golden Path",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "GoldenPath"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-GoldenPathFragment",
+      "name": "Golden Path Fragment",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "GoldenPathFragment"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-GoldenPathRegion",
+      "name": "Golden Path Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "GoldenPathRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-IntergenicRegion",
+      "name": "Intergenic Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "IntergenicRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-Intron",
+      "name": "Intron",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "Intron"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-MRNA",
+      "name": "mRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "MRNA",
+        "nestExons": true
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-MiRNA",
+      "name": "miRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "MiRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-MiRNATarget",
+      "name": "miRNA Target",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "MiRNATarget"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-MicroarrayOligo",
+      "name": "Microarray Oligo",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "MicroarrayOligo"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-MobileGeneticElement",
+      "name": "Mobile Genetic Element",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "MobileGeneticElement"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-NaturalTransposableElement",
+      "name": "Natural Transposable Element",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "NaturalTransposableElement"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-NcRNA",
+      "name": "ncRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "NcRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-Oligo",
+      "name": "Oligo",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "Oligo"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-OverlappingESTSet",
+      "name": "Overlapping EST Set",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "OverlappingESTSet"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-PCRProduct",
+      "name": "PCR Product",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "PCRProduct"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-PointMutation",
+      "name": "Point Mutation",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "PointMutation"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-Primer",
+      "name": "Primer",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "Primer"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ProbeSet",
+      "name": "Probe Set",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ProbeSet"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-RRNA",
+      "name": "rRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "RRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-RegulatoryRegion",
+      "name": "Regulatory Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "RegulatoryRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ReversePrimer",
+      "name": "Reverse Primer",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ReversePrimer"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-SnRNA",
+      "name": "snRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "SnRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-SnoRNA",
+      "name": "snoRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "SnoRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-SyntenicRegion",
+      "name": "Syntenic Region",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "SyntenicRegion"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-TFBindingSite",
+      "name": "TF Binding Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "TFBindingSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-TFmodule",
+      "name": "T Fmodule",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "TFmodule"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-TRNA",
+      "name": "tRNA",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "TRNA"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-ThreePrimeUTR",
+      "name": "Three Prime UTR",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "ThreePrimeUTR"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-Transcript",
+      "name": "Transcript",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "Transcript",
+        "nestExons": true
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-TransposableElement",
+      "name": "Transposable Element",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "TransposableElement"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-TransposableElementInsertionSite",
+      "name": "Transposable Element Insertion Site",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "TransposableElementInsertionSite"
+      }
+    },
+    {
+      "type": "FeatureTrack",
+      "trackId": "flymine-7227-UTR",
+      "name": "UTR",
+      "category": [
+        "Features"
+      ],
+      "assemblyNames": [
+        "flymine-7227"
+      ],
+      "adapter": {
+        "type": "InterMineFeatureAdapter",
+        "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+        "intermineClass": "UTR"
+      }
+    }
+  ],
+  "aggregateTextSearchAdapters": [
+    {
+      "type": "InterMineTextSearchAdapter",
+      "textSearchAdapterId": "humanmine-9606-names",
+      "baseUrl": "https://www.humanmine.org/humanmine/service/jbrowse/9606",
+      "trackIdPrefix": "humanmine-9606-",
+      "assemblyNames": [
+        "humanmine-9606"
+      ]
+    },
+    {
+      "type": "InterMineTextSearchAdapter",
+      "textSearchAdapterId": "flymine-7227-names",
+      "baseUrl": "https://www.flymine.org/flymine/service/jbrowse/7227",
+      "trackIdPrefix": "flymine-7227-",
+      "assemblyNames": [
+        "flymine-7227"
+      ]
+    }
+  ]
+}

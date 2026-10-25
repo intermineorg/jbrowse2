@@ -8,7 +8,7 @@ import { execFileSync, spawn } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { createReadStream, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { createServer } from 'node:http'
-import { dirname, extname, join, normalize } from 'node:path'
+import { dirname, extname, join, normalize, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { e2eConfig, PLUGIN_FILE } from './config.mjs'
@@ -83,7 +83,8 @@ function runProcess(cmd, args, env) {
 }
 
 /** Returns the parsed browser-check report, or `{ skipped: reason }`. */
-export async function runBrowserCheck(port, outDir) {
+export async function runBrowserCheck(port, outDirArg) {
+  const outDir = resolve(outDirArg)
   mkdirSync(outDir, { recursive: true })
   const url = `http://localhost:${port}`
   const proxy = process.env.https_proxy || process.env.HTTPS_PROXY || ''
@@ -107,13 +108,23 @@ export async function runBrowserCheck(port, outDir) {
   return JSON.parse(out.trim().split('\n').pop())
 }
 
+// CLI: `node e2e/run.mjs [outDir]` serves the built plugin and prints the report.
+// With E2E_PORT set, skip the local server and test whatever already listens on
+// that localhost port (docker/smoke-test.sh uses this on the built image).
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const webDir = await ensureJBrowseWeb()
-  const { server, port } = await startServer(webDir)
   const outDir = process.argv[2] || join(root, 'test-screenshots')
+  let server
+  let port = Number(process.env.E2E_PORT)
+  if (!port) {
+    const webDir = await ensureJBrowseWeb()
+    ;({ server, port } = await startServer(webDir))
+  }
   try {
-    console.log(JSON.stringify(await runBrowserCheck(port, outDir), null, 2))
+    const report = await runBrowserCheck(port, outDir)
+    console.log(JSON.stringify(report, null, 2))
+    const failed = report.skipped || Object.values(report).some(r => r && (r.failure || r.errors?.length))
+    process.exitCode = failed ? 1 : 0
   } finally {
-    server.close()
+    server?.close()
   }
 }

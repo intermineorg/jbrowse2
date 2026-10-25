@@ -1,0 +1,16 @@
+# Fallback route only (see docs/DEPLOY.md, "Route B"): join the container to each
+# mine's frontend network so the mine's own nginx can proxy /jbrowse2/ to it.
+# Copy to docker-compose.override.yml and list your mines' networks, in both places.
+# List them with: docker network ls --filter name=frontend
+services:
+  jbrowse2:
+    networks:
+      - default
+      - humanmine_frontend
+      - flymine_frontend
+
+networks:
+  humanmine_frontend:
+    external: true
+  flymine_frontend:
+    external: true

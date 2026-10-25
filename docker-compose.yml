@@ -1,0 +1,16 @@
+# JBrowse 2 for any number of InterMines. See README.md and docs/DEPLOY.md.
+#
+#   docker compose up -d --build
+#
+# Publish it behind a TLS front end as https://jbrowse2.intermine.org/ (the
+# default of the BlueGenes tool in bluegenes-tool/). Plain HTTP on the host port.
+services:
+  jbrowse2:
+    container_name: jbrowse2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      # Host port; override in .env (copy .env.example).
+      - ${JBROWSE2_HTTP_PORT:-14881}:80

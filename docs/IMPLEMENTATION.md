@@ -53,6 +53,10 @@ These settle PLAN.md section 6.
   results by fuzzy match on `displayString`, which therefore must contain the
   query.
 
+- The jbrowse-web 4.3.0 build references its assets with relative URLs, so the
+  `/jbrowse2/` sub-path fallback needs no build changes (verified with a front
+  nginx and the headless browser checks); PLAN.md expected absolute URLs.
+
 ## Steps
 
 ### Phase 1: plugin (`plugin/`)
@@ -94,7 +98,7 @@ These settle PLAN.md section 6.
 
 ### Phase 3: Docker
 
-- [ ] **10. Container.** `Dockerfile` (pinned `jbrowse-web` zip with SHA-256,
+- [x] **10. Container.** `Dockerfile` (pinned `jbrowse-web` zip with SHA-256,
   plugin bundle, generated configs), `default.conf` (no `X-Frame-Options`,
   cache `static/`, never `config.json`), `docker-compose.yml`
   (`jbrowse2`, `JBROWSE2_HTTP_PORT` default 14881), build script and a smoke

@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+**/.e2e-cache
+**/test-screenshots
+.git
+docs
+config/test
+plugin/test
+plugin/e2e
