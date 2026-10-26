@@ -53,6 +53,9 @@ additionally drives it in headless Chromium against the live mine (see
 
 ### Route A (the plan): https://jbrowse2.intermine.org/ **(you / DBCLS admins)**
 
+[See SWITCH-TO-jbrowse2.intermine.org.md for details of how to switch from Route B to Route A
+once jbrowse2.intermine.org is up]
+
 Ask the front-end admins for a virtual host named `jbrowse2.intermine.org`
 with its own certificate, proxying to `127.0.0.1:14881`: the same as
 `jbrowse.intermine.org` in the intermineorg/jbrowse README ("Route A") with
