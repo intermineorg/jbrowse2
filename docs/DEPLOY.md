@@ -5,10 +5,14 @@ What runs: one nginx container (`jbrowse2`) serving jbrowse-web, the
 JBrowse 1 container it holds no data and never talks to a mine; each
 visitor's browser reads genome data from the mine's `service/jbrowse`
 endpoints (CORS is open on them). JBrowse 1 keeps running alongside, because
-the classic webapp and the current BlueGenes tool use its URLs.
+the classic webapp and other sites use it.
 
-Steps that need the maintainer or the front-end admins are marked **(you)**;
-nothing here has been done on the production server.
+**Current deployment (October 2026):** HumanMine and FlyMine, by Route B
+below (`https://www.<mine>.org/jbrowse2/`), container on host port 14881
+(JBrowse 1 is on 14880). Both mines' gene report pages show only the JBrowse 2
+panel. Route A (`jbrowse2.intermine.org`) and npm publishing are not done.
+
+Steps that need the maintainer or the front-end admins are marked **(you)**.
 
 **`docker-compose` or `docker compose`.** The commands below use
 `docker-compose`, the standalone Compose binary, because that is what the

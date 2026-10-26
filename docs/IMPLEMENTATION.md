@@ -10,7 +10,8 @@ its commit lands.
   as far as is possible without access to the production server. Things that
   need the maintainer or the DBCLS admins (the `jbrowse2.intermine.org`
   vhost, npm publish, installing the tool in `data/tools/`, `git push`) are
-  documented as explicit steps in `docs/DEPLOY.md`, not performed.
+  documented as explicit steps in `docs/DEPLOY.md`, not performed. (The
+  maintainer has since deployed it on HumanMine and FlyMine by Route B.)
 - Commit locally only; the maintainer pushes.
 - Tests that need the live HumanMine service or a browser are in separate
   suites (`npm run test:live`, `npm run test:e2e`) and skip with a clear

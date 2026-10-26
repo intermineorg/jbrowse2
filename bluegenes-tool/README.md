@@ -35,7 +35,7 @@ through as is.
 | `tracks` | `["Gene"]` | InterMine classes opened on load; each must exist in the config (the generator makes one per class). The generated `Gene` track draws each gene with all its transcripts and their exons |
 | `flank` | `0.1` | widen the view by this fraction of the gene length on each side |
 
-## Installing next to the JBrowse 1 tool
+## Installing
 
 On the server, tools are npm packages under `data/tools/@intermine/<name>/`
 in each mine's deployment, bind-mounted into the bluegenes container. **(you)**
@@ -79,12 +79,12 @@ mines without a saved layout show every installed tool automatically. Log
 in to BlueGenes as the mine's superuser, open **Admin**, and under **Report
 page layout** select the class `Gene`, open the `Genomics` category, add
 *JBrowse 2 Genome Browser* from the "Available classes, tools and templates"
-box, move it next to *JBrowse Genome Browser*, and **Save changes**. The
-layout is stored in the mine, so it applies to every user at once with no
-restart; to undo, remove the item and save again. Both panels then appear on
-a gene report page, so they can be compared before the JBrowse 1 tool is
-retired. Nothing else changes: the JBrowse 1 tool and the classic webapp keep
-using the JBrowse 1 container.
+box, and **Save changes**. To replace JBrowse 1 rather than show both,
+also remove *JBrowse Genome Browser* from the category, as on HumanMine and
+FlyMine. The layout is stored in the mine, so it applies to every user at
+once with no restart; to undo, reverse the change and save again. The
+JBrowse 1 tool can stay installed, and the classic webapp keeps using the
+JBrowse 1 container.
 
 ## Development
 

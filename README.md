@@ -7,14 +7,18 @@ JBrowse 1. No genome data is copied out of the mine: InterMine already serves
 the JBrowse 1 REST-store protocol under `<mine>/service/jbrowse`, and a small
 plugin teaches JBrowse 2 to read it.
 
-**Status: implemented and tested against live HumanMine; not yet deployed.**
+**Status: deployed on HumanMine and FlyMine** (October 2026), as
+`https://www.humanmine.org/jbrowse2/` and `https://www.flymine.org/jbrowse2/`;
+their gene report pages show the JBrowse 2 panel instead of the JBrowse 1 one.
 Genes drawn with all their transcripts (exons as boxes, CDS thick and UTRs
 thin where the mine has CDS data, introns as carets that point down on the
 minus strand (switchable to all up), an arrowhead for the strand), every other feature class, the reference sequence and name search all
 work in a real jbrowse-web in headless Chromium, against HumanMine and
-FlyMine. What remains needs the maintainer or the front-end admins: the
-`jbrowse2.intermine.org` virtual host, installing the BlueGenes tool, and
-publishing to npm. [docs/DEPLOY.md](docs/DEPLOY.md) lists each step.
+FlyMine, and [intermineorg/mine-tests](https://github.com/intermineorg/mine-tests)
+checks both deployments. Not done yet: the shared `jbrowse2.intermine.org`
+virtual host and publishing the plugin to npm. [docs/DEPLOY.md](docs/DEPLOY.md)
+lists each step. JBrowse 1 keeps running for the classic webapp and other
+sites.
 
 [PLAN.md](PLAN.md) is the original brief; [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md)
 records what was built, the API behaviour verified against HumanMine (interbase
