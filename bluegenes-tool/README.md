@@ -94,6 +94,15 @@ npm test         # node --test: URL building, main() against stubs, bundle shape
 npm run build    # esbuild -> dist/bundle.js (+ copies style.css); commit dist/
 ```
 
+**Bump `version` in `package.json` with every change to `dist/` or
+`config.json`.** BlueGenes loads the tool as
+`/tools/@intermine/bluegenes-jbrowse2-tool/dist/bundle.js?v=<version>`, and
+the bundle is served without cache headers, so with an unchanged version
+visitors' browsers can keep the old bundle for days or weeks. After
+installing a new build on a mine, `/api/tools/all` should show the new
+version. (The `tools.edn` entry records the installed version; update it to
+match when reinstalling.)
+
 `main()` takes injectable dependencies (`queryData`, `fetch`, `document`) as a
 sixth argument for tests; BlueGenes calls it with five. The repository's
 browser test (`plugin/`, `npm run test:e2e`) opens the URL this tool builds
